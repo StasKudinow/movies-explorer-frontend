@@ -11,3 +11,11 @@
   -moz-text-size-adjust: 100%;
   background-color: #FAFAFA;
 }
+
+/* test */
+.app__test {
+  margin: 20px 20px;
+  font-size: 40px;
+  text-align: center;
+  color: blue;
+}
