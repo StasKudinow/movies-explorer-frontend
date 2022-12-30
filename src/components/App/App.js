@@ -1,12 +1,13 @@
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
+import Main from "../Main/Main";
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <Header />
 
-      <p className="app__test">Приложение</p>
+      <Main />
 
       <Footer />
     </div>

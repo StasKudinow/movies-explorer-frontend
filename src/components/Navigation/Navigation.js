@@ -6,7 +6,7 @@ function Navigation() {
           <a className="nav__register" href="/">Регистрация</a>
         </li>
         <li>
-          <button className="nav__login">Войти</button>
+          <button className="nav__login" type="button">Войти</button>
         </li>
       </ul>
     </nav>
