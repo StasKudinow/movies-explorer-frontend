@@ -1,7 +1,9 @@
+import Title from "../Title/Title";
+
 function AboutProject() {
   return (
-    <section className="project">
-      <h3 className="project__title">О проекте</h3>
+    <section className="project" id="about-project">
+      <Title title="О проекте"/>
       <div className="project__info">
         <div className="project__info-container">
           <h3 className="project__info-title">Дипломный проект включал 5 этапов</h3>

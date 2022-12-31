@@ -18,9 +18,9 @@ function NavTab() {
   return (
     <nav className="navtab__container">
       <button className={navTabFirstButton} type="button" onClick={handleClick}>Узнать больше</button>
-      <button className={navTabButton} type="button">О проекте</button>
-      <button className={navTabButton} type="button">Технологии</button>
-      <button className={navTabButton} type="button">Студент</button>
+      <a href="#about-project"><button className={navTabButton} type="button">О проекте</button></a>
+      <a href="#techs"><button className={navTabButton} type="button">Технологии</button></a>
+      <a href="#student"><button className={navTabButton} type="button">Студент</button></a>
     </nav>
   )
 }
