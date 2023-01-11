@@ -2,11 +2,11 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 30px;
   list-style-type: none;
 }
 
 .nav__register {
+  margin-right: 30px;
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
@@ -33,6 +33,50 @@
 }
 
 .nav__login:hover {
+  opacity: 0.6;
+  transition: opacity 0.4s ease;
+  cursor: pointer;
+}
+
+.nav__movies {
+  margin-right: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #000000;
+  text-decoration: none;
+}
+
+.nav__movies:hover {
+  opacity: 0.6;
+  transition: opacity 0.4s ease;
+  cursor: pointer;
+}
+
+.nav__saved-movies{
+  margin-right: 50px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #000000;
+  text-decoration: none;
+}
+
+.nav__saved-movies:hover {
+  opacity: 0.6;
+  transition: opacity 0.4s ease;
+  cursor: pointer;
+}
+
+.nav__profile {
+  width: 100px;
+  height: 32px;
+  margin-top: 4px;
+  background-image: url(../../images/profile_button.svg);
+  background-position: center;
+}
+
+.nav__profile:hover {
   opacity: 0.6;
   transition: opacity 0.4s ease;
   cursor: pointer;
