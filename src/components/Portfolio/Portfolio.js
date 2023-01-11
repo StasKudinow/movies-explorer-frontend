@@ -27,7 +27,7 @@ function Portfolio() {
         </ul>
       </nav>
     </section>
-  )
+  );
 }
 
 export default Portfolio;

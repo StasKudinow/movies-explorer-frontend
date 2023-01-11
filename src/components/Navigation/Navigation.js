@@ -31,7 +31,7 @@ function Navigation() {
         </nav>
       </Route>
     </Switch>
-  )
+  );
 }
 
 export default Navigation;

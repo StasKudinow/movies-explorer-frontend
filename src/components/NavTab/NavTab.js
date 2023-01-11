@@ -22,7 +22,7 @@ function NavTab() {
       <a href="#techs"><button className={navTabButton} type="button">Технологии</button></a>
       <a href="#student"><button className={navTabButton} type="button">Студент</button></a>
     </nav>
-  )
+  );
 }
 
 export default NavTab;

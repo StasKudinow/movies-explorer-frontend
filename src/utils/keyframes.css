@@ -1,7 +1,6 @@
 @keyframes show {
   0% {
     opacity: 0;
-    visibility: hidden;
   }
   25% {
     opacity: 0.2;
@@ -14,24 +13,5 @@
   }
   100% {
     opacity: 1;
-  }
-}
-
-@keyframes hide {
-  0% {
-    opacity: 1;
-  }
-  25% {
-    opacity: 0.8;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  75% {
-    opacity: 0.2;
-  }
-  100% {
-    opacity: 0;
-    visibility: hidden;
   }
 }

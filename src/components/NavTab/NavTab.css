@@ -18,6 +18,8 @@
 }
 
 .navtab__button:hover {
+  opacity: 0.6;
+  transition: opacity 0.4s ease;
   cursor: pointer;
 }
 
@@ -27,7 +29,7 @@
 }
 
 .navtab__button_hidden {
-  animation: hide 0.4s ease-out 0.2s forwards;
+  display: none;
 }
 
 .navtab__button_animation {

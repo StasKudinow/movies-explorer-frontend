@@ -16,7 +16,7 @@ function Promo() {
       </div>
       <NavTab />
     </section>
-  )
+  );
 }
 
 export default Promo;

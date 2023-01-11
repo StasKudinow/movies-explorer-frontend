@@ -18,7 +18,7 @@ function Header() {
         </header>
       </Route>
     </Switch>
-  )
+  );
 }
 
 export default Header;
