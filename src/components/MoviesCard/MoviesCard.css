@@ -7,10 +7,12 @@
 
 .card:hover {
   cursor: pointer;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, .3);
+  transition: box-shadow 0.2s linear;
 }
 
 .card__image {
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   width: 270px;
   height: 151px;
 }
@@ -21,28 +23,29 @@
   flex-direction: row;
   justify-content: space-between;
   border-bottom: 1px solid #E8E8E8;
-  position: relative;
 }
 
 .card__title {
-  margin: 0 0 29px;
+  margin: 4px 0 0;
   font-size: 13px;
   font-weight: 500;
   line-height: 16px;
   color: #000000;
 }
 
-.card__like {
+.card__button {
+  margin-bottom: 25px;
   width: 24px;
   height: 24px;
   background-image: url(../../images/card_like_disabled.svg);
-  position: absolute;
-  top: -3px;
-  right: 0;
 }
 
-.card__like_active {
+.card__button_like {
   background-image: url(../../images/card_like_active.svg);
+}
+
+.card:hover .card__button_delete {
+  background-image: url(../../images/card_delete_active.svg);
 }
 
 .card__time {
@@ -50,6 +53,5 @@
   font-size: 11px;
   font-weight: 400;
   line-height: 13px;
-  letter-spacing: -0.05em;
   color: #A0A0A0;
 }

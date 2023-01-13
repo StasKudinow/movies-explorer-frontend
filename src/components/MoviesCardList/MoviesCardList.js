@@ -1,25 +1,17 @@
 import MoviesCard from "../MoviesCard/MoviesCard";
+import { movies } from "../../utils/constants";
 
 function MoviesCardList() {
   return (
     <section className="card-list">
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      <MoviesCard />
-      {/* <button className="card-list__button" type="button">Ещё</button> */}
+      {movies.map((card) => {
+        return <MoviesCard
+        key={card.id}
+        image={card.image}
+        title={card.title}
+        duration={card.duration}
+      />
+      })}
     </section>
   );
 }

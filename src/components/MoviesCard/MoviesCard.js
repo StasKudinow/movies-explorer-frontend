@@ -1,8 +1,7 @@
 import { useState } from "react";
+import { Route, Switch } from 'react-router-dom';
 
-import cardImage from "../../images/movie_1.png"
-
-function MoviesCard() {
+function MoviesCard(props) {
   const [isLiked, setIsLiked] = useState(false);
 
   function handleLike() {
@@ -10,18 +9,33 @@ function MoviesCard() {
   };
 
   const cardLikeClassName = (
-    `card__like ${isLiked ? 'card__like_active' : ''}`
+    `card__button ${isLiked ? 'card__button_like' : ''}`
   );
 
   return (
-    <div className="card" onClick={handleLike}>
-      <img className="card__image" src={cardImage} alt="Обложка" />
-      <div className="card__info">
-        <p className="card__title">33 слова о дизайне</p>
-        <div className={cardLikeClassName} type="button" />
-      </div>
-      <p className="card__time">1ч 42м</p>
-    </div>
+    <Switch>
+      <Route path="/movies">
+        <div className="card" onClick={handleLike}>
+          <img className="card__image" src={props.image} alt="Обложка" />
+          <div className="card__info">
+            <p className="card__title">{props.title}</p>
+            <div className={cardLikeClassName} />
+          </div>
+          <p className="card__time">{props.duration}</p>
+        </div>
+      </Route>
+      <Route path="/saved-movies">
+        <div className="card card_saved-movies">
+          <img className="card__image" src={props.image} alt="Обложка" />
+          <div className="card__info">
+            <p className="card__title">{props.title}</p>
+            <div className='card__button card__button_delete' />
+          </div>
+          <p className="card__time">{props.duration}</p>
+        </div>
+      </Route>
+    </Switch>
+    
   );
 }
 
