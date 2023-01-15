@@ -5,6 +5,7 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
+import Profile from '../Profile/Profile';
 
 function App() {
   return (
@@ -15,19 +16,24 @@ function App() {
 
         <Route exact path="/">
           <Main />
+          <Footer />
         </Route>
 
         <Route path="/movies">
           <Movies />
+          <Footer />
         </Route>
 
         <Route path="/saved-movies">
           <SavedMovies />
+          <Footer />
+        </Route>
+
+        <Route path="/profile">
+          <Profile />
         </Route>
 
       </Switch>
-
-      <Footer />
     </div>
   );
 }

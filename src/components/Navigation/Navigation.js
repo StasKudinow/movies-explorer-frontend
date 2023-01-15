@@ -33,6 +33,21 @@ function Navigation() {
           </ul>
         </nav>
       </Route>
+      <Route path="/profile">
+        <nav>
+          <ul className="nav__menu">
+            <li>
+              <NavLink to="/movies" className="nav__movies">Фильмы</NavLink>
+            </li>
+            <li>
+              <NavLink to="/saved-movies" className="nav__saved-movies">Сохранённые фильмы</NavLink>
+            </li>
+            <li>
+              <NavLink to="/profile"><div className="nav__profile" /></NavLink>
+            </li>
+          </ul>
+        </nav>
+      </Route>
       <Route path="/">
         <nav>
           <ul className="nav__menu">

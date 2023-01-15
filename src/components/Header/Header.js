@@ -17,6 +17,12 @@ function Header() {
           <Navigation />
         </header>
       </Route>
+      <Route path="/profile">
+        <header className="header">
+        <Link to="/"><button className="header__logo" type="button" /></Link>
+          <Navigation />
+        </header>
+      </Route>
       <Route path="/">
         <header className="header header_main-page">
           <Link to="/"><button className="header__logo" type="button" /></Link>

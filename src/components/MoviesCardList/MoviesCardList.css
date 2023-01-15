@@ -2,8 +2,11 @@
   padding: 70px 70px 10px;
   display: grid;
   grid-template-columns: repeat(4, 270px);
-  grid-template-rows: repeat(4, 230px);
   justify-content: center;
   align-items: center;
   gap: 38px 20px;
+}
+
+.card-list_saved {
+  padding-bottom: 240px;
 }
