@@ -1,5 +1,6 @@
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
+import Logo from '../Logo/Logo';
 import Navigation from "../Navigation/Navigation";
 
 function Header() {
@@ -7,25 +8,25 @@ function Header() {
     <Switch>
       <Route path="/movies">
         <header className="header">
-        <Link to="/"><button className="header__logo" type="button" /></Link>
+          <Logo />
           <Navigation />
         </header>
       </Route>
       <Route path="/saved-movies">
         <header className="header">
-        <Link to="/"><button className="header__logo" type="button" /></Link>
+          <Logo />
           <Navigation />
         </header>
       </Route>
       <Route path="/profile">
         <header className="header">
-        <Link to="/"><button className="header__logo" type="button" /></Link>
+          <Logo />
           <Navigation />
         </header>
       </Route>
       <Route path="/">
         <header className="header header_main-page">
-          <Link to="/"><button className="header__logo" type="button" /></Link>
+          <Logo />
           <Navigation />
         </header>
       </Route>
