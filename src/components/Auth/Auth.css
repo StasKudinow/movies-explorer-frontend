@@ -111,3 +111,9 @@
 .auth__button_login {
   margin-top: 196px;
 }
+
+@media screen and (max-width: 879px) {
+  .auth {
+    padding: 232px 0;
+  }
+}

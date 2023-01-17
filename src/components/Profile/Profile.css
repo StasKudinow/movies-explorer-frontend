@@ -1,5 +1,5 @@
 .profile {
-  padding: 72px 435px 70px;
+  padding: 72px 0 70px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,7 +14,7 @@
 }
 
 .profile__container {
-  width: 100%;
+  width: 410px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -71,4 +71,18 @@
   opacity: 0.6;
   transition: opacity 0.4s ease;
   cursor: pointer;
+}
+
+@media screen and (max-width: 879px) {
+  .profile {
+    padding: 232px 0 269px;
+  }
+
+  .profile__title {
+    margin-bottom: 96px;
+  }
+
+  .profile__edit{
+    margin-top: 210px;
+  }
 }

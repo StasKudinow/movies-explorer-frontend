@@ -1,27 +1,31 @@
 import { Route, Switch } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
 import Logo from '../Logo/Logo';
 import Navigation from "../Navigation/Navigation";
+import BurgerMenu from '../BurgerMenu/BurgerMenu';
 
 function Header() {
+  const isMobile = useMediaQuery({ query: '(max-width: 879px)' });
+
   return (
     <Switch>
       <Route path="/movies">
         <header className="header">
           <Logo />
-          <Navigation />
+          { isMobile ? <BurgerMenu /> : <Navigation /> }
         </header>
       </Route>
       <Route path="/saved-movies">
         <header className="header">
           <Logo />
-          <Navigation />
+          { isMobile ? <BurgerMenu /> : <Navigation /> }
         </header>
       </Route>
       <Route path="/profile">
         <header className="header">
           <Logo />
-          <Navigation />
+          { isMobile ? <BurgerMenu /> : <Navigation /> }
         </header>
       </Route>
       <Route path="/">

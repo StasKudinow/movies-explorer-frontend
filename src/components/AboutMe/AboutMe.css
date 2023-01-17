@@ -28,6 +28,7 @@
   line-height: 20px;
   color: #000000;
 }
+
 .student__description {
   max-width: 600px;
   margin: 26px 0 0;
@@ -58,4 +59,37 @@
   margin-top: 66px;
   border-radius: 10px;
   object-fit: cover;
+}
+
+@media screen and (max-width: 879px) {
+  .student {
+    padding: 90px 50px;
+  }
+
+  .student__name {
+    font-size: 40px;
+    line-height: 40px;
+  }
+
+  .student__about {
+    margin-top: 16px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .student__description {
+    max-width: 364px;
+    margin-top: 20px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .student__link {
+    margin-top: 87px;
+  }
+
+  .student__photo {
+    width: 255px;
+    height: 307px;
+  }
 }

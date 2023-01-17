@@ -1,0 +1,16 @@
+.burger-menu {
+  width: 44px;
+  height: 42px;
+  padding: 0;
+  border: none;
+  background-image: url(../../images/burger_menu.svg);
+  background-color: #FFFFFF;
+  background-size: cover;
+  background-position: center;
+}
+
+.burger-menu:hover {
+  opacity: 0.6;
+  transition: opacity 0.4s ease;
+  cursor: pointer;
+}

@@ -35,3 +35,11 @@
 .navtab__button_animation {
   animation: show 0.4s ease-out 0.2s backwards;
 }
+
+@media screen and (max-width: 879px) {
+  .navtab__container {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+}

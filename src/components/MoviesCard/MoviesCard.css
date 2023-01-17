@@ -26,6 +26,7 @@
 }
 
 .card__title {
+  max-width: 226px;
   margin: 4px 0 0;
   font-size: 13px;
   font-weight: 500;
@@ -54,4 +55,20 @@
   font-weight: 400;
   line-height: 13px;
   color: #A0A0A0;
+}
+
+@media screen and (max-width: 879px) {
+  .card {
+    width: 339px;
+    height: 269px;
+  }
+
+  .card__image {
+    width: 339px;
+    height: 190px;
+  }
+
+  .card__title {
+    max-width: 295px;
+  }
 }

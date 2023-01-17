@@ -60,3 +60,33 @@
   letter-spacing: -0.04em;
   color: #000000;
 }
+
+@media screen and (max-width: 879px) {
+  .techs {
+    padding: 85px 50px 90px;
+  }
+
+  .techs__info{
+    padding-top: 80px;
+  }
+
+  .techs__text {
+    margin-top: 22px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .techs__stack {
+    padding-top: 83px;
+  }
+
+  .techs__stack-item {
+    width: 84px;
+    height: 57px;
+  }
+
+  .techs__stack-text {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

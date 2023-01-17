@@ -76,3 +76,31 @@
   text-align: center;
   color: #A0A0A0;
 }
+
+@media screen and (max-width: 879px) {
+  .project {
+    padding: 90px 50px;
+  }
+
+  .project__info-container {
+    max-width: 319px;
+    padding-bottom: 93px;
+  }
+
+  .project__info-title {
+    padding-bottom: 22px;
+  }
+
+  .project__info-text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .project__timeline-block:first-child {
+    width: 140px;
+  }
+
+  .project__timeline-caption {
+    padding-top: 7px;
+  }
+}

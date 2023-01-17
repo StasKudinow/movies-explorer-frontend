@@ -50,3 +50,9 @@
   transition: opacity 0.4s ease;
   cursor: pointer;
 }
+
+@media screen and (max-width: 879px) {
+  .footer {
+    padding: 0 30px;
+  }
+}
