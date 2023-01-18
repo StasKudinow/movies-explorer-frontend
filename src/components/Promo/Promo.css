@@ -36,11 +36,12 @@
   height: 304px;
   margin-bottom: 84px;
   background-image: url(../../images/promo_image.svg);
+  background-size: cover;
 }
 
 @media screen and (max-width: 879px) {
   .promo {
-    padding: 137px 30px 46px;
+    padding: 137px 30px 66px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -60,8 +61,8 @@
   }
 
   .promo__title{
-    margin-bottom: 22px;
     max-width: 680px;
+    margin-bottom: 22px;
     font-size: 40px;
     line-height: 50px;
     text-align: center;
@@ -71,5 +72,29 @@
     margin-bottom: 92px;
     max-width: 260px;
     text-align: center;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .promo {
+    padding: 67px 0 20px;
+  }
+
+  .promo__image {
+    width: 210px;
+    height: 206px;
+    margin-bottom: 44px;
+  }
+
+  .promo__title {
+    max-width: 300px;
+    margin-bottom: 24px;
+    font-size: 30px;
+    line-height: 38px;
+    letter-spacing: -0.04em;
+  }
+
+  .promo__caption {
+    margin-bottom: 80px;
   }
 }

@@ -36,3 +36,14 @@
   line-height: 18px;
   color: #000000;
 }
+
+@media screen and (max-width: 712px) {
+  .checkbox {
+    margin-top: 40px;
+    gap: 13px;
+  }
+
+  .checkbox__text {
+    font-size: 11px;
+  }
+}

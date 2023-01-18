@@ -1,4 +1,4 @@
-import linkSymbol from "../../images/link_symbol.svg";
+// import linkSymbol from "../../images/link_symbol.svg";
 
 function Portfolio() {
   return (
@@ -9,19 +9,19 @@ function Portfolio() {
           <li className="portfolio__link">
             <p className="portfolio__link-text">Статичный сайт</p>
             <a href="https://staskudinow.github.io/how-to-learn/" target="blank">
-              <img  className="portfolio__link-symbol" src={linkSymbol} alt="Ссылка" />
+              <div className="portfolio__link-symbol" />
             </a>
           </li>
           <li className="portfolio__link">
             <p className="portfolio__link-text">Адаптивный сайт</p>
             <a href="https://staskudinow.github.io/russian-travel/" target="blank">
-              <img className="portfolio__link-symbol" src={linkSymbol} alt="Ссылка" />
+              <div className="portfolio__link-symbol" />
             </a>
           </li>
           <li className="portfolio__link">
             <p className="portfolio__link-text">Одностраничное приложение</p>
             <a href="https://staskudinow.mesto.nomoredomains.club/" target="blank">
-              <img className="portfolio__link-symbol" src={linkSymbol} alt="Ссылка" />
+              <div className="portfolio__link-symbol" />
             </a>
           </li>
         </ul>

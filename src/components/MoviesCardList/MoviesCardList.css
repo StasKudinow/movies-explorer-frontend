@@ -33,3 +33,12 @@
     padding-bottom: 150px;
   }
 }
+
+@media screen and (max-width: 712px) {
+  .card-list {
+    max-height: 1366px;
+    padding-top: 41px;
+    grid-template-columns: repeat(1, 300px);
+    gap: 34px;
+  }
+}

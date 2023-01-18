@@ -58,7 +58,7 @@
   cursor: pointer;
 }
 
-.profile__logout{
+.profile__logout {
   margin-top: 16px;
   font-size: 13px;
   font-weight: 500;
@@ -84,5 +84,30 @@
 
   .profile__edit{
     margin-top: 210px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .profile {
+    padding: 67px 0 40px;
+  }
+
+  .profile__title {
+    margin-bottom: 80px;
+  }
+
+  .profile__container {
+    max-width: 260px;
+  }
+
+  .profile__edit {
+    margin-top: 379px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .profile__logout {
+    font-size: 12px;
+    line-height: 15px;
   }
 }

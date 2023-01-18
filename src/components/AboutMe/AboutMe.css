@@ -5,6 +5,7 @@
 .student__container {
   display: flex;
   justify-content: space-between;
+  gap: 15px;
 }
 
 .student__info {
@@ -91,5 +92,45 @@
   .student__photo {
     width: 255px;
     height: 307px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .student {
+    max-width: 292px;
+    margin: 0 auto;
+    padding: 70px 0;
+  }
+
+  .student__container {
+    flex-direction: column-reverse;
+    gap: 0;
+  }
+
+  .student__photo {
+    width: 292px;
+    height: 352px;
+    margin-top: 60px;
+  }
+
+  .student__name {
+    margin-top: 39px;
+    font-size: 30px;
+    line-height: 36px;
+  }
+
+  .student__about {
+    margin-top: 20px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .student__description {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .student__link {
+    margin-top: 40px;
   }
 }

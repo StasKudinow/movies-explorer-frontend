@@ -40,3 +40,26 @@
     padding: 408px 184px 222px;
   }
 }
+
+@media screen and (max-width: 650px) {
+  .page404 {
+    padding: 329px 0 30px;
+  }
+
+  .page404__title {
+    margin-bottom: 10px;
+    font-size: 80px;
+    line-height: 97px;
+  }
+
+  .page404__text {
+    margin-bottom: 284px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .page404__link {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

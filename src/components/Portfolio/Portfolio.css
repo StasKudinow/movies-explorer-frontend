@@ -42,9 +42,14 @@
 }
 
 .portfolio__link-symbol {
+  width: 17px;
+  height: 17px;
+  background-image: url(../../images/link_symbol.svg);
+  background-size: cover;
+  background-position: center;
   position: absolute;
   top: 39px;
-  right: 6px
+  right: 7px
 }
 
 .portfolio__link-symbol:hover {
@@ -60,5 +65,31 @@
 
   .portfolio__link-text {
     font-size: 28px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .portfolio {
+    max-width: 292px;
+    margin: 0 auto;
+    padding: 0 0 70px;
+  }
+
+  .portfolio__title {
+    margin-bottom: 22px;
+    font-size: 14px;
+  }
+
+  .portfolio__link-text {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .portfolio__link-symbol {
+    width: 11px;
+    height: 11px;
+    background-image: url(../../images/link_symbol_320.svg);
+    top: 26px;
+    right: 4px;
   }
 }

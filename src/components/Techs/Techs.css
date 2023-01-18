@@ -66,7 +66,7 @@
     padding: 85px 50px 90px;
   }
 
-  .techs__info{
+  .techs__info {
     padding-top: 80px;
   }
 
@@ -88,5 +88,33 @@
   .techs__stack-text {
     font-size: 12px;
     line-height: 15px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .techs {
+    max-width: 284px;
+    margin: 0 auto;
+    padding: 70px 0 68px;
+  }
+
+  .techs__info {
+    padding-top: 60px;
+  }
+
+  .techs__title {
+    font-size: 30px;
+    line-height: 36px;
+  }
+
+  .techs__text {
+    margin-top: 24px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .techs__stack {
+    padding-top: 50px;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
