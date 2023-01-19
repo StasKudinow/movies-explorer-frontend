@@ -1,11 +1,14 @@
 import { Route, Switch, NavLink } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
 function Navigation() {
+  const isMobile = useMediaQuery({ query: '(max-width: 879px)' });
+
   return (
     <Switch>
       <Route path="/movies">
         <nav>
-          <ul className="nav__menu">
+          <ul className={`nav__menu ${isMobile ? 'nav__menu_mobile' : ''}`}>
             <li>
               <NavLink to="/movies" className="nav__movies">Фильмы</NavLink>
             </li>
@@ -20,7 +23,7 @@ function Navigation() {
       </Route>
       <Route path="/saved-movies">
         <nav>
-          <ul className="nav__menu">
+          <ul className={`nav__menu ${isMobile ? 'nav__menu_mobile' : ''}`}>
             <li>
               <NavLink to="/movies" className="nav__movies">Фильмы</NavLink>
             </li>
@@ -35,7 +38,7 @@ function Navigation() {
       </Route>
       <Route path="/profile">
         <nav>
-          <ul className="nav__menu">
+          <ul className={`nav__menu ${isMobile ? 'nav__menu_mobile' : ''}`}>
             <li>
               <NavLink to="/movies" className="nav__movies">Фильмы</NavLink>
             </li>

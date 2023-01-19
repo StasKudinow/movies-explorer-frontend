@@ -24,3 +24,9 @@
   transition: opacity 0.4s ease;
   cursor: pointer;
 }
+
+@media screen and (max-width: 712px) {
+  .more__button {
+    width: 240px;
+  }
+}

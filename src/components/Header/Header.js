@@ -5,7 +5,7 @@ import Logo from '../Logo/Logo';
 import Navigation from "../Navigation/Navigation";
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 
-function Header() {
+function Header(props) {
   const isMobile = useMediaQuery({ query: '(max-width: 879px)' });
 
   return (
@@ -13,19 +13,19 @@ function Header() {
       <Route path="/movies">
         <header className="header">
           <Logo />
-          { isMobile ? <BurgerMenu /> : <Navigation /> }
+          { isMobile ? <BurgerMenu onClick={props.onPopupWithMenu} /> : <Navigation /> }
         </header>
       </Route>
       <Route path="/saved-movies">
         <header className="header">
           <Logo />
-          { isMobile ? <BurgerMenu /> : <Navigation /> }
+          { isMobile ? <BurgerMenu onClick={props.onPopupWithMenu} /> : <Navigation /> }
         </header>
       </Route>
       <Route path="/profile">
         <header className="header">
           <Logo />
-          { isMobile ? <BurgerMenu /> : <Navigation /> }
+          { isMobile ? <BurgerMenu onClick={props.onPopupWithMenu} /> : <Navigation /> }
         </header>
       </Route>
       <Route path="/">

@@ -8,6 +8,10 @@
   list-style-type: none;
 }
 
+.nav__menu_mobile {
+  flex-direction: column;
+}
+
 .nav__register {
   margin-right: 30px;
   font-size: 12px;
@@ -57,7 +61,7 @@
   cursor: pointer;
 }
 
-.nav__saved-movies{
+.nav__saved-movies {
   margin-right: 50px;
   font-size: 14px;
   font-weight: 400;
@@ -86,7 +90,50 @@
   cursor: pointer;
 }
 
+@media screen and (max-width: 879px) {
+  .nav__menu_mobile {
+    gap: 28px;
+  }
+
+  .nav__movies {
+    margin: 0;
+    padding-bottom: 4px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    border-bottom: 2px solid #FAFAFA;
+  }
+
+  .nav__movies:hover {
+    border-bottom: 2px solid #000000;
+    opacity: 1;
+  }
+
+  .nav__saved-movies {
+    margin: 0;
+    padding-bottom: 4px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 22px;
+    border-bottom: 2px solid #FAFAFA;
+  }
+
+  .nav__saved-movies:hover {
+    border-bottom: 2px solid #000000;
+    opacity: 1;
+  }
+
+  .nav__profile {
+    height: 36px;
+    margin-top: 444px;
+  }
+}
+
 @media screen and (max-width: 650px) {
+  .nav__menu_mobile {
+    gap: 24px;
+  }
+
   .nav__register {
     font-size: 10px;
     margin-right: 14px;
@@ -96,5 +143,17 @@
     width: 54px;
     height: 26px;
     font-size: 10px;
+  }
+
+  .nav__movies {
+    padding-bottom: 5px;
+  }
+
+  .nav__saved-movies {
+    padding-bottom: 5px;
+  }
+
+  .nav__profile {
+    margin-top: 418px;
   }
 }

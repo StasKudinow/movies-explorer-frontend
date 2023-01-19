@@ -1,4 +1,5 @@
 import { Route, Switch } from 'react-router-dom';
+import { useState } from 'react';
 
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
@@ -9,8 +10,19 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import PopupWithMenu from '../PopupWithMenu/PopupWithMenu';
 
 function App() {
+  const [isPopupWithMenuOpen, setIsPopupWithMenuOpen] = useState(false);
+
+  function handlePopupWithMenuClick() {
+    setIsPopupWithMenuOpen(true);
+  };
+
+  function closeAllPopups() {
+    setIsPopupWithMenuOpen(false);
+  };
+
   return (
     <div className="app">
       <Switch>
@@ -22,19 +34,25 @@ function App() {
         </Route>
 
         <Route path="/movies">
-          <Header />
+          <Header
+            onPopupWithMenu={handlePopupWithMenuClick}
+          />
           <Movies />
           <Footer />
         </Route>
 
         <Route path="/saved-movies">
-          <Header />
+          <Header
+            onPopupWithMenu={handlePopupWithMenuClick}
+          />
           <SavedMovies />
           <Footer />
         </Route>
 
         <Route path="/profile">
-          <Header />
+          <Header
+            onPopupWithMenu={handlePopupWithMenuClick}
+          />
           <Profile />
         </Route>
 
@@ -51,6 +69,11 @@ function App() {
         </Route>
 
       </Switch>
+
+      <PopupWithMenu
+        isOpen={isPopupWithMenuOpen}
+        onClose={closeAllPopups}
+      />
     </div>
   );
 }
