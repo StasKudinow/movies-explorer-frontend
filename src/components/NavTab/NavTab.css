@@ -1,10 +1,10 @@
-.navtab__container {
+.promo__nav-container {
   max-width: 640px;
   display: flex;
   justify-content: space-between;
 }
 
-.navtab__button {
+.promo__nav-button {
   width: 129px;
   height: 36px;
   border: 1px solid rgba(0, 0, 0, .6);
@@ -17,32 +17,32 @@
   color: #000000;
 }
 
-.navtab__button:hover {
+.promo__nav-button:hover {
   opacity: 0.6;
   transition: opacity 0.4s ease;
   cursor: pointer;
 }
 
-.navtab__button_disabled {
+.promo__nav-button_disabled {
   border: 1px solid rgba(0, 0, 0, .2);
   color: rgba(0, 0, 0, .2);
 }
 
-.navtab__button_hidden {
+.promo__nav-button_hidden {
   display: none;
 }
 
-.navtab__button_animation {
+.promo__nav-button_animation {
   animation: show 0.4s ease-out 0.2s backwards;
 }
 
 @media screen and (max-width: 879px) {
-  .navtab__container {
+  .promo__nav-container {
     flex-direction: column;
     align-items: center;
   }
 
-  .navtab__button {
+  .promo__nav-button {
     margin-bottom: 10px;
   }
 }

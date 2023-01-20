@@ -8,15 +8,15 @@ function NavTab() {
   };
 
   const navTabButton = (
-    `navtab__button ${isClicked ? 'navtab__button_animation' : 'navtab__button_hidden'}`
+    `promo__nav-button ${isClicked ? 'promo__nav-button_animation' : 'promo__nav-button_hidden'}`
   );
 
   const navTabFirstButton = (
-    `navtab__button ${isClicked ? 'navtab__button_disabled' : ''}`
+    `promo__nav-button ${isClicked ? 'promo__nav-button_disabled' : ''}`
   );
 
   return (
-    <nav className="navtab__container">
+    <nav className="promo__nav-container">
       <button className={navTabFirstButton} type="button" onClick={handleClick}>Узнать больше</button>
       <a href="#about-project"><button className={navTabButton} type="button">О проекте</button></a>
       <a href="#techs"><button className={navTabButton} type="button">Технологии</button></a>

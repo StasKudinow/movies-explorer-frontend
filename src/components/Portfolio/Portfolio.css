@@ -18,7 +18,7 @@
   list-style-type: none;
 }
 
-.portfolio__link {
+.portfolio__link-container {
   padding: 20px 0 19px;
   position: relative;
   display: flex;
@@ -27,7 +27,11 @@
   border-bottom: 1px solid #E8E8E8;
 }
 
-.portfolio__link:last-child {
+.portfolio__link {
+  text-decoration: none;
+}
+
+.portfolio__link-container:last-child {
   border-bottom: none;
   padding-bottom: 0;
 }
@@ -39,6 +43,12 @@
   line-height: 50px;
   letter-spacing: -0.04em;
   color: #000000;
+}
+
+.portfolio__link-text:hover {
+  opacity: 0.6;
+  transition: opacity 0.4s ease;
+  cursor: pointer;
 }
 
 .portfolio__link-symbol {

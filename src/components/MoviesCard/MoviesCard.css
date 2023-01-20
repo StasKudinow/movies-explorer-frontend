@@ -1,23 +1,17 @@
-.card {
+.cards__card {
   width: 270px;
   height: 230px;
   display: flex;
   flex-direction: column;
 }
 
-.card:hover {
-  cursor: pointer;
-  box-shadow: 3px 3px 8px rgba(0, 0, 0, .3);
-  transition: box-shadow 0.2s linear;
-}
-
-.card__image {
+.cards__image {
   margin-bottom: 10px;
   width: 270px;
   height: 151px;
 }
 
-.card__info {
+.cards__info {
   margin-bottom: 7px;
   display: flex;
   flex-direction: row;
@@ -25,7 +19,7 @@
   border-bottom: 1px solid #E8E8E8;
 }
 
-.card__title {
+.cards__title {
   max-width: 226px;
   margin: 4px 0 0;
   font-size: 13px;
@@ -34,22 +28,26 @@
   color: #000000;
 }
 
-.card__button {
+.cards__button {
   margin-bottom: 25px;
+  padding: 0;
   width: 24px;
   height: 24px;
+  border: none;
   background-image: url(../../images/card_like_disabled.svg);
+  background-position: center;
+  background-color: #FAFAFA;
 }
 
-.card__button_like {
+.cards__button_like {
   background-image: url(../../images/card_like_active.svg);
 }
 
-.card:hover .card__button_delete {
+.cards__card:hover .cards__button_delete {
   background-image: url(../../images/card_delete_active.svg);
 }
 
-.card__time {
+.cards__time {
   margin: 0;
   font-size: 11px;
   font-weight: 400;
@@ -58,33 +56,33 @@
 }
 
 @media screen and (max-width: 879px) {
-  .card {
+  .cards__card {
     width: 339px;
     height: 269px;
   }
 
-  .card__image {
+  .cards__image {
     width: 339px;
     height: 190px;
   }
 
-  .card__title {
+  .cards__title {
     max-width: 295px;
   }
 }
 
 @media screen and (max-width: 712px) {
-  .card {
+  .cards__card {
     width: 300px;
     height: 246px;
   }
 
-  .card__image {
+  .cards__image {
     width: 300px;
     height: 168px;
   }
 
-  .card__title {
+  .cards__title {
     font-size: 12px;
     line-height: 15px;
   }

@@ -1,4 +1,4 @@
-.card-list {
+.cards {
   max-height: 1114px;
   padding: 70px 0 10px;
   display: grid;
@@ -9,12 +9,12 @@
   gap: 38px 20px;
 }
 
-.card-list_saved {
+.cards_saved {
   padding-bottom: 240px;
 }
 
 @media screen and (max-width: 1150px) {
-  .card-list {
+  .cards {
     max-height: 750px;
     grid-template-columns: repeat(3, 270px);
     gap: 30px;
@@ -22,20 +22,20 @@
 }
 
 @media screen and (max-width: 879px) {
-  .card-list {
+  .cards {
     max-height: 1166px;
     padding-top: 69px;
     grid-template-columns: repeat(2, 339px);
     gap: 30px;
   }
 
-  .card-list_saved {
+  .cards_saved {
     padding-bottom: 150px;
   }
 }
 
 @media screen and (max-width: 712px) {
-  .card-list {
+  .cards {
     max-height: 1366px;
     padding-top: 41px;
     grid-template-columns: repeat(1, 300px);

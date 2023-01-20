@@ -1,22 +1,22 @@
-.burger-menu {
+.header__burger-menu {
   width: 44px;
   height: 42px;
   padding: 0;
   border: none;
   background-image: url(../../images/burger_menu.svg);
-  background-color: #FFFFFF;
+  background-color: #FAFAFA;
   background-size: cover;
   background-position: center;
 }
 
-.burger-menu:hover {
+.header__burger-menu:hover {
   opacity: 0.6;
   transition: opacity 0.4s ease;
   cursor: pointer;
 }
 
 @media screen and (max-width: 712px) {
-  .burger-menu {
+  .header__burger-menu {
     width: 40px;
     height: 40px;
     background-image: url(../../images/burger_menu_320.svg);

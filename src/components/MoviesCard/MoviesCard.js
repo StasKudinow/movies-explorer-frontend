@@ -9,29 +9,29 @@ function MoviesCard(props) {
   };
 
   const cardLikeClassName = (
-    `card__button ${isLiked ? 'card__button_like' : ''}`
+    `cards__button ${isLiked ? 'cards__button_like' : ''}`
   );
 
   return (
     <Switch>
       <Route path="/movies">
-        <div className="card" onClick={handleLike}>
-          <img className="card__image" src={props.image} alt="Обложка" />
-          <div className="card__info">
-            <p className="card__title">{props.title}</p>
-            <div className={cardLikeClassName} />
+        <div className="cards__card" onClick={handleLike}>
+          <img className="cards__image" src={props.image} alt="Обложка" />
+          <div className="cards__info">
+            <p className="cards__title">{props.title}</p>
+            <button className={cardLikeClassName} type="button" />
           </div>
-          <p className="card__time">{props.duration}</p>
+          <p className="cards__time">{props.duration}</p>
         </div>
       </Route>
       <Route path="/saved-movies">
-        <div className="card card_saved-movies">
-          <img className="card__image" src={props.image} alt="Обложка" />
-          <div className="card__info">
-            <p className="card__title">{props.title}</p>
-            <div className='card__button card__button_delete' />
+        <div className="cards__card">
+          <img className="cards__image" src={props.image} alt="Обложка" />
+          <div className="cards__info">
+            <p className="cards__title">{props.title}</p>
+            <button className='cards__button cards__button_delete' type="button" />
           </div>
-          <p className="card__time">{props.duration}</p>
+          <p className="cards__time">{props.duration}</p>
         </div>
       </Route>
     </Switch>

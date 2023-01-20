@@ -33,7 +33,6 @@ function Techs() {
           </div>
         </div>
       </div>
-      
     </section>
   );
 }

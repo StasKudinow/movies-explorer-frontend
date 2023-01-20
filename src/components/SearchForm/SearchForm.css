@@ -23,6 +23,7 @@
   line-height: 34px;
   text-align: center;
   color: #A0A0A0;
+  background-color: #FAFAFA;
 }
 
 .search__input:focus {

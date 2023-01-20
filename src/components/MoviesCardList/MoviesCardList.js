@@ -7,7 +7,7 @@ function MoviesCardList() {
   return (
     <Switch>
       <Route path="/movies">
-        <section className="card-list">
+        <section className="cards">
           {movies.map((card) => {
             return <MoviesCard
               key={card.id}
@@ -19,7 +19,7 @@ function MoviesCardList() {
         </section>
       </Route>
       <Route path="/saved-movies">
-        <section className="card-list card-list_saved">
+        <section className="cards cards_saved">
           {savedMovies.map((card) => {
             return <MoviesCard
               key={card.id}
