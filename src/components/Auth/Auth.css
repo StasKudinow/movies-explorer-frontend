@@ -1,0 +1,162 @@
+.auth {
+  margin: 0 auto;
+  padding: 70px 0;
+  max-width: 396px;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth__title {
+  margin: 37px 0 40px;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 29px;
+  color: #000000;
+}
+
+.auth__redirect {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  justify-content: space-around;
+  gap: 6px;
+}
+
+.auth__redirect-text {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  color: #A0A0A0;
+}
+
+.auth__redirect-link {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  color: #3456F3;
+  text-decoration: none;
+}
+
+.auth__redirect-link:hover {
+  opacity: 0.6;
+  transition: opacity 0.4s ease;
+  cursor: pointer;
+}
+
+
+.auth__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth__input {
+  margin-bottom: 24px;
+  padding: 0 0 10px;
+  border: none;
+  border-bottom: 1px solid #E8E8E8;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  color: #000000;
+  background-color: #FAFAFA;
+}
+
+.auth__input_error-active {
+  margin: 0;
+  color: #EE3465;
+}
+
+.auth__input:focus {
+  outline: none;
+  border-bottom: 1px solid #3456F3;
+}
+
+.auth__input-text {
+  margin: 0 0 5px;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12px;
+  color: #A0A0A0;
+}
+
+.auth__input-error {
+  margin: 6px 0;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12px;
+  color: #EE3465;
+}
+
+.auth__button {
+  width: 396px;
+  height: 45px;
+  margin-top: 128px;
+  padding: 0;
+  border: none;
+  border-radius: 3px;
+  background-color: #3456F3;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  color: #FFFFFF;
+}
+
+.auth__button:hover {
+  opacity: 0.6;
+  transition: opacity 0.4s ease;
+  cursor: pointer;
+}
+
+.auth__button_login {
+  margin-top: 196px;
+}
+
+@media screen and (max-width: 879px) {
+  .auth {
+    padding: 232px 0;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .auth {
+    padding: 56px 0 30px;
+    align-items: center;
+  }
+
+  .auth__title {
+    margin: 47px 0 80px;
+  }
+
+  .auth__form {
+    max-width: 260px;
+  }
+
+  .auth__button {
+    margin-top: 216px;
+    width: 260px;
+    height: 45px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .auth__redirect {
+    margin-top: 14px;
+    gap: 7px;
+  }
+
+  .auth__redirect-text {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .auth__redirect-link {
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .auth__button_login {
+    margin-top: 285px;
+  }
+}

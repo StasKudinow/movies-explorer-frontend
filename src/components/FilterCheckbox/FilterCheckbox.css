@@ -1,0 +1,49 @@
+.search__checkbox {
+  margin-top: 30px;
+  display: flex;
+  gap: 12px;
+  position: relative;
+}
+
+.search__checkbox:hover {
+  cursor: pointer;
+}
+
+.search__checkbox-input-hidden {
+  position: absolute;
+  width: 0.1px;
+  height: 0.1px;
+  overflow: hidden;
+  clip-path: inset(0 0 0 0);
+}
+
+.search__checkbox-input-hidden + .search__checkbox-input-disabled {
+  width: 36px;
+  height: 20px;
+  background-image: url(../../images/checkbox_off.svg);
+}
+
+.search__checkbox-input-hidden:checked + .search__checkbox-input-checked {
+  width: 36px;
+  height: 20px;
+  background-image: url(../../images/checkbox_on.svg);
+}
+
+.search__checkbox-text {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #000000;
+}
+
+@media screen and (max-width: 712px) {
+  .search__checkbox {
+    margin-top: 40px;
+    gap: 13px;
+  }
+
+  .search__checkbox-text {
+    font-size: 11px;
+  }
+}
