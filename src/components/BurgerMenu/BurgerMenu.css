@@ -1,4 +1,4 @@
-.header__burger-menu {
+.burger-menu {
   width: 44px;
   height: 42px;
   padding: 0;
@@ -9,14 +9,14 @@
   background-position: center;
 }
 
-.header__burger-menu:hover {
+.burger-menu:hover {
   opacity: 0.6;
   transition: opacity 0.4s ease;
   cursor: pointer;
 }
 
 @media screen and (max-width: 712px) {
-  .header__burger-menu {
+  .burger-menu {
     width: 40px;
     height: 40px;
     background-image: url(../../images/burger_menu_320.svg);

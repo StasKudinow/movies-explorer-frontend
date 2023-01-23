@@ -1,7 +1,7 @@
 function BurgerMenu(props) {
   return (
     <>
-      <button className="header__burger-menu" type="button" onClick={props.onClick} />
+      <button className="burger-menu" type="button" onClick={props.onClick} />
     </>
   );
 }

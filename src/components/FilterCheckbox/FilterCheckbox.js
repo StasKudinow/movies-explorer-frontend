@@ -14,15 +14,15 @@ function FilterCheckbox() {
   };
 
   const checkboxClassName = (
-    `${isChecked ? 'search__checkbox-input-checked' : 'search__checkbox-input-disabled'}`
+    `${isChecked ? 'checkbox__input-checked' : 'checkbox__input-disabled'}`
   )
 
   return (
     <form>
-      <label className="search__checkbox" onClick={handleCheckbox}>
-        <input className="search__checkbox-input-hidden" type="checkbox" />
+      <label className="checkbox" onClick={handleCheckbox}>
+        <input className="checkbox__input-hidden" type="checkbox" />
         <div className={checkboxClassName} />
-        <p className="search__checkbox-text">Короткометражки</p>
+        <p className="checkbox__text">Короткометражки</p>
       </label>
     </form>
   );
