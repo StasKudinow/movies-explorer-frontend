@@ -1,7 +1,7 @@
-import { Route, Switch, NavLink } from "react-router-dom";
+import { NavLink, Route, Switch } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 
-function Navigation() {
+function NavigationLoggedIn() {
   const isMobile = useMediaQuery({ query: '(max-width: 879px)' });
 
   return (
@@ -74,12 +74,22 @@ function Navigation() {
       </Route>
       <Route path="/">
         <nav>
-          <ul className="nav-menu">
+          <ul className={`nav-menu ${isMobile ? 'nav-menu_mobile' : ''}`}>
             <li>
-              <NavLink to="/signup" className="nav-menu__register">Регистрация</NavLink>
+              <NavLink to="/movies" className="nav-menu__movies">Фильмы</NavLink>
             </li>
             <li>
-              <NavLink to="/signin"><button className="nav-menu__login" type="button">Войти</button></NavLink>
+              <NavLink to="/saved-movies" className="nav-menu__saved-movies">Сохранённые фильмы</NavLink>
+            </li>
+            <li>
+              <NavLink to="/profile">
+                <button className="nav-menu__profile nav-menu__profile_main-page" type="button">
+                  <div className="nav-menu__profile-container">
+                    <p className="nav-menu__profile-text">Аккаунт</p>
+                    <div className="nav-menu__profile-image" />
+                  </div>
+                </button>
+              </NavLink>
             </li>
           </ul>
         </nav>
@@ -88,4 +98,4 @@ function Navigation() {
   );
 }
 
-export default Navigation;
+export default NavigationLoggedIn;

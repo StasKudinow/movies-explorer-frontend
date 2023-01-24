@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { useState } from 'react';
 
 import Footer from "../Footer/Footer";
@@ -11,8 +11,10 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import PopupWithMenu from '../PopupWithMenu/PopupWithMenu';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
   const [isPopupWithMenuOpen, setIsPopupWithMenuOpen] = useState(false);
 
   function handlePopupWithMenuClick() {
@@ -25,35 +27,54 @@ function App() {
 
   return (
     <div className="app">
+
       <Switch>
 
         <Route exact path="/">
-          <Header />
+          <Header
+            onPopupWithMenu={handlePopupWithMenuClick}
+            loggedIn={loggedIn}
+          />
           <Main />
           <Footer />
         </Route>
 
-        <Route path="/movies">
+        <Route path="/movies" >
           <Header
             onPopupWithMenu={handlePopupWithMenuClick}
+            loggedIn={loggedIn}
           />
-          <Movies />
+          <ProtectedRoute
+            path="/movies"
+            loggedIn={loggedIn}
+            component={Movies}
+          />
           <Footer />
         </Route>
 
-        <Route path="/saved-movies">
+        <Route path="/saved-movies" >
           <Header
             onPopupWithMenu={handlePopupWithMenuClick}
+            loggedIn={loggedIn}
           />
-          <SavedMovies />
+          <ProtectedRoute
+            path="/saved-movies"
+            loggedIn={loggedIn}
+            component={SavedMovies}
+          />
           <Footer />
         </Route>
 
-        <Route path="/profile">
+        <Route path="/profile" >
           <Header
             onPopupWithMenu={handlePopupWithMenuClick}
+            loggedIn={loggedIn}
           />
-          <Profile />
+          <ProtectedRoute
+            path="/profile"
+            loggedIn={loggedIn}
+            component={Profile}
+          />
         </Route>
 
         <Route path="/signup">
@@ -66,6 +87,10 @@ function App() {
 
         <Route path="*">
           <PageNotFound />
+        </Route>
+
+        <Route exact path="/">
+          { loggedIn ? <Redirect to="/" /> : <Redirect to="/signin" /> }
         </Route>
 
       </Switch>

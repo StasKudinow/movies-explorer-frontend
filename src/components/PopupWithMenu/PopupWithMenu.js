@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import Navigation from "../Navigation/Navigation";
+import Navigation from "../Navigation/NavigationLoggedIn";
 
 function PopupWithMenu(props) {
   return (
