@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-function Profile() {
+function Profile(props) {
   return (
     <main className="profile">
       <h1 className="profile__title">Привет, Виталий!</h1>
@@ -15,7 +15,7 @@ function Profile() {
         </div>
         <button className="profile__edit" type="button">Редактировать</button>
       </div>
-      <Link to="/" className="profile__logout">Выйти из аккаунта</Link>
+      <Link to="/" className="profile__logout" onClick={props.onLogout}>Выйти из аккаунта</Link>
     </main>
   );
 }

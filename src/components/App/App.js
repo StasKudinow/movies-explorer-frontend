@@ -1,5 +1,7 @@
-import { Route, Switch, Redirect } from 'react-router-dom';
-import { useState } from 'react';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
+import * as auth from '../../utils/auth';
 
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
@@ -17,12 +19,57 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isPopupWithMenuOpen, setIsPopupWithMenuOpen] = useState(false);
 
+  const history = useHistory();
+
   function handlePopupWithMenuClick() {
     setIsPopupWithMenuOpen(true);
   };
 
   function closeAllPopups() {
     setIsPopupWithMenuOpen(false);
+  };
+
+  // API
+  function onRegister({ name, email, password }) {
+    return auth.register(name, email, password)
+      .then((res) => {
+        return res;
+      })
+  };
+
+  function onLogin({ email, password }) {
+    return auth.authorize(email, password)
+      .then((res) => {
+        if (res.token) {
+          localStorage.setItem('jwt', res.token);
+          setLoggedIn(true);
+        }
+      })
+  };
+
+  function onLogout() {
+    localStorage.removeItem('jwt');
+    setLoggedIn(false);
+  };
+
+  useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      checkToken(jwt);
+    }
+  }, []);
+
+  function checkToken(jwt) {
+    return auth.getContent(jwt)
+      .then((res) => {
+        if (res) {
+          setLoggedIn(true);
+          history.push('/movies');
+        }
+      })
+      .catch((err) => {
+        console.log(`Ошибка аутентификации: ${err}`);
+      })
   };
 
   return (
@@ -74,23 +121,28 @@ function App() {
             path="/profile"
             loggedIn={loggedIn}
             component={Profile}
+            onLogout={onLogout}
           />
         </Route>
 
         <Route path="/signup">
-          <Register />
+          <Register
+            onRegister={onRegister}
+          />
         </Route>
 
         <Route path="/signin">
-          <Login />
+          <Login
+            onLogin={onLogin}
+          />
         </Route>
 
         <Route path="*">
           <PageNotFound />
         </Route>
 
-        <Route exact path="/">
-          { loggedIn ? <Redirect to="/" /> : <Redirect to="/signin" /> }
+        <Route path="/">
+          { loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signin" /> }
         </Route>
 
       </Switch>
