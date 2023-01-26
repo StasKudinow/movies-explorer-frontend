@@ -1,12 +1,10 @@
 import { useState, useCallback } from 'react';
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Logo from "../Logo/Logo";
 import Auth from "../Auth/Auth";
 
 function Login({ onLogin }) {
-
-  const history = useHistory();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,9 +26,6 @@ function Login({ onLogin }) {
     evt.preventDefault();
     onLogin({ email, password })
       .then(resetForm)
-      .then(() => {
-        history.push('/movies');
-      })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
       })

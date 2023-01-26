@@ -1,12 +1,10 @@
 import { useState, useCallback } from 'react';
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Logo from "../Logo/Logo";
 import Auth from "../Auth/Auth";
 
-function Register({ onRegister }) {
-
-  const history = useHistory();
+function Register({ onRegister, onLogin }) {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -35,7 +33,7 @@ function Register({ onRegister }) {
     onRegister({ name, email, password })
       .then(resetForm)
       .then(() => {
-        history.push('/movies');
+        onLogin({ email, password });
         console.log('Success!');
       })
       .catch((err) => {
