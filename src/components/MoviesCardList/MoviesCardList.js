@@ -1,31 +1,27 @@
 import { Route, Switch } from 'react-router-dom';
 
 import MoviesCard from "../MoviesCard/MoviesCard";
-import { movies, savedMovies } from "../../utils/constants";
 
-function MoviesCardList() {
+function MoviesCardList(props) {
+
   return (
     <Switch>
       <Route path="/movies">
         <section className="cards">
-          {movies.map((card) => {
+          {props.movies && props.movies.map((data) => {
             return <MoviesCard
-              key={card.id}
-              image={card.image}
-              title={card.title}
-              duration={card.duration}
+              key={data.id}
+              card={data}
             />
           })}
         </section>
       </Route>
       <Route path="/saved-movies">
         <section className="cards cards_saved">
-          {savedMovies.map((card) => {
+          {props.movies && props.movies.map((data) => {
             return <MoviesCard
-              key={card.id}
-              image={card.image}
-              title={card.title}
-              duration={card.duration}
+              key={data.id}
+              card={data}
             />
           })}
         </section>

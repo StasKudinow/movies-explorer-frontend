@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 
 import * as auth from '../../utils/auth';
 import * as MainApi from '../../utils/MainApi';
+import * as MoviesApi from '../../utils/MoviesApi'
 
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
@@ -20,6 +21,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
+  const [movies, setMovies] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [isPopupWithMenuOpen, setIsPopupWithMenuOpen] = useState(false);
 
@@ -89,10 +91,10 @@ function App() {
 
   useEffect(() => {
     if (loggedIn) {
-      MainApi.getUserInfo()
-        .then((data) => {
-          console.log(data)
-          setCurrentUser(data);
+      Promise.all([MainApi.getUserInfo(), MoviesApi.getInitialMovies()])
+        .then(([userData, moviesData]) => {
+          setCurrentUser(userData);
+          setMovies(moviesData);
           history.push('/movies');
         })
         .catch((err) => {
@@ -125,6 +127,7 @@ function App() {
               path="/movies"
               loggedIn={loggedIn}
               component={Movies}
+              movies={movies}
             />
             <Footer />
           </Route>

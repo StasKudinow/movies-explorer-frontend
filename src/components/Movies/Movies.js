@@ -2,11 +2,13 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesMore from "../MoviesMore/MoviesMore";
 
-function Movies() {
+function Movies(props) {
   return (
     <main>
       <SearchForm />
-      <MoviesCardList />
+      <MoviesCardList
+        movies={props.movies}
+      />
       <MoviesMore />
     </main>
   );

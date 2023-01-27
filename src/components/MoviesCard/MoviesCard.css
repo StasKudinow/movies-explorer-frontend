@@ -17,6 +17,38 @@
   flex-direction: row;
   justify-content: space-between;
   border-bottom: 1px solid #E8E8E8;
+  position: relative;
+}
+
+
+.cards__info:hover {
+  cursor: pointer;
+}
+
+[tooltip]::after {
+  content: attr(tooltip);
+  width: 78px;
+  margin: 0;
+  padding: 3px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 1;
+  top: -15px;
+  right: 2px;
+  background-color: #DDDEE3;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  text-align: center;
+  pointer-events: none;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  transition: 0.3s 0.5s linear;
+  opacity: 0;
+}
+
+[tooltip]:hover::after {
+  opacity: 1;
+  top: -30px;
 }
 
 .cards__title {
@@ -43,7 +75,7 @@
   background-image: url(../../images/card_like_active.svg);
 }
 
-.cards__card:hover .cards__button_delete {
+.cards__info:hover .cards__button_delete {
   background-image: url(../../images/card_delete_active.svg);
 }
 

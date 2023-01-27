@@ -1,5 +1,5 @@
 .cards {
-  max-height: 1114px;
+  max-height: 1034px;
   padding: 70px 0 10px;
   display: grid;
   grid-template-columns: repeat(4, 270px);
