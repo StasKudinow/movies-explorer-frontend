@@ -5,11 +5,25 @@ function MoviesCard(props) {
   const [isLiked, setIsLiked] = useState(false);
 
   const image = 'https://api.nomoreparties.co' + props.card.image.url;
+  const thumbnail = 'https://api.nomoreparties.co' + props.card.image.formats.thumbnail.url;
   const duration = props.card.duration;
   const minutes = duration - 60;
 
   function handleLike() {
-    setIsLiked(!isLiked);
+    setIsLiked(true);
+    props.onSaveMovie({
+      country: props.card.country,
+      director: props.card.director,
+      duration: props.card.duration,
+      year: props.card.year,
+      description: props.card.description,
+      image: image,
+      trailerLink: props.card.trailerLink,
+      thumbnail: thumbnail,
+      movieId: props.card.id,
+      nameRU: props.card.nameRU,
+      nameEN: props.card.nameEN
+    });
   };
 
   const cardLikeClassName = (

@@ -32,3 +32,38 @@ export const updateUserInfo = (data) => {
   })
   .then(checkResponse)
 };
+
+export const getSavedMovies = () => {
+  return fetch(`${BASE_URL}/movies`, {
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(checkResponse)
+};
+
+export const saveMovie = (data) => {
+  console.log(data)
+  return fetch(`${BASE_URL}/movies`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      country: data.country,
+      director: data.director,
+      duration: data.duration,
+      year: data.year,
+      description: data.description,
+      image: data.image,
+      trailerLink: data.trailerLink,
+      thumbnail: data.thumbnail,
+      movieId: data.movieId,
+      nameRU: data.nameRU,
+      nameEN: data.nameEN
+    })
+  })
+  .then(checkResponse)
+};

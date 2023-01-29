@@ -22,6 +22,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [movies, setMovies] = useState([]);
+  // const [savedMovies, setSavedMovies] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [isPopupWithMenuOpen, setIsPopupWithMenuOpen] = useState(false);
 
@@ -43,6 +44,16 @@ function App() {
       })
       .catch((err) => {
         console.log(`Ошибка обновления данных пользователя: ${err}`);
+      })
+  };
+
+  function handleSaveMovie(data) {
+    MainApi.saveMovie(data)
+      .then((movie) => {
+        setMovies(movie, ...movies);
+      })
+      .catch((err) => {
+        console.log(`Ошибка сохранения фильма: ${err}`);
       })
   };
 
@@ -101,7 +112,19 @@ function App() {
           console.log(`Ошибка получения данных: ${err}`);
         })
     }
-  }, [history, loggedIn])
+  }, [history, loggedIn]);
+
+  useEffect(() => {
+    if (loggedIn) {
+      MainApi.getSavedMovies()
+        .then((savedMoviesData) => {
+          setMovies(savedMoviesData);
+        })
+        .catch((err) => {
+          console.log(`Ошибка получения сохраненных фильмов: ${err}`);
+        })
+    }
+  }, [loggedIn]);
 
   return (
     <div className="app">
@@ -127,6 +150,7 @@ function App() {
               path="/movies"
               loggedIn={loggedIn}
               component={Movies}
+              onSaveMovie={handleSaveMovie}
               movies={movies}
             />
             <Footer />
@@ -141,6 +165,7 @@ function App() {
               path="/saved-movies"
               loggedIn={loggedIn}
               component={SavedMovies}
+              movies={movies}
             />
             <Footer />
           </Route>

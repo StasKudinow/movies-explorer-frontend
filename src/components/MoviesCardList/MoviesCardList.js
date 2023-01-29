@@ -12,6 +12,7 @@ function MoviesCardList(props) {
             return <MoviesCard
               key={data.id}
               card={data}
+              onSaveMovie={props.onSaveMovie}
             />
           })}
         </section>

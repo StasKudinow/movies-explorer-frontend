@@ -8,6 +8,7 @@ function Movies(props) {
       <SearchForm />
       <MoviesCardList
         movies={props.movies}
+        onSaveMovie={props.onSaveMovie}
       />
       <MoviesMore />
     </main>
