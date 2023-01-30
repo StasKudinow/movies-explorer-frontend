@@ -17,16 +17,17 @@ function MoviesCardList(props) {
           })}
         </section>
       </Route>
-      <Route path="/saved-movies">
+      {/* <Route path="/saved-movies">
         <section className="cards cards_saved">
-          {props.movies && props.movies.map((data) => {
+          {props.savedMovies && props.savedMovies.map((data) => {
+            console.log(data)
             return <MoviesCard
               key={data.id}
               card={data}
             />
           })}
         </section>
-      </Route>
+      </Route> */}
     </Switch>
   );
 }

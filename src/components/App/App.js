@@ -1,4 +1,4 @@
-import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 import * as auth from '../../utils/auth';
@@ -21,8 +21,8 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
-  const [movies, setMovies] = useState([]);
-  // const [savedMovies, setSavedMovies] = useState([]);
+  // const [movies, setMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [isPopupWithMenuOpen, setIsPopupWithMenuOpen] = useState(false);
 
@@ -50,7 +50,7 @@ function App() {
   function handleSaveMovie(data) {
     MainApi.saveMovie(data)
       .then((movie) => {
-        setMovies(movie, ...movies);
+        setSavedMovies(movie, ...savedMovies);
       })
       .catch((err) => {
         console.log(`Ошибка сохранения фильма: ${err}`);
@@ -105,12 +105,15 @@ function App() {
       Promise.all([MainApi.getUserInfo(), MoviesApi.getInitialMovies()])
         .then(([userData, moviesData]) => {
           setCurrentUser(userData);
-          setMovies(moviesData);
+          // setMovies(moviesData);
+          localStorage.setItem('movies', JSON.stringify(moviesData));
           history.push('/movies');
         })
         .catch((err) => {
           console.log(`Ошибка получения данных: ${err}`);
         })
+    } else {
+      history.push('/');
     }
   }, [history, loggedIn]);
 
@@ -118,7 +121,7 @@ function App() {
     if (loggedIn) {
       MainApi.getSavedMovies()
         .then((savedMoviesData) => {
-          setMovies(savedMoviesData);
+          setSavedMovies(savedMoviesData);
         })
         .catch((err) => {
           console.log(`Ошибка получения сохраненных фильмов: ${err}`);
@@ -151,7 +154,7 @@ function App() {
               loggedIn={loggedIn}
               component={Movies}
               onSaveMovie={handleSaveMovie}
-              movies={movies}
+              // movies={movies}
             />
             <Footer />
           </Route>
@@ -165,7 +168,7 @@ function App() {
               path="/saved-movies"
               loggedIn={loggedIn}
               component={SavedMovies}
-              movies={movies}
+              savedMovies={savedMovies}
             />
             <Footer />
           </Route>
@@ -199,10 +202,6 @@ function App() {
 
           <Route path="*">
             <PageNotFound />
-          </Route>
-
-          <Route exact path="/">
-            { loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" /> }
           </Route>
 
         </Switch>

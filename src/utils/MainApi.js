@@ -44,7 +44,6 @@ export const getSavedMovies = () => {
 };
 
 export const saveMovie = (data) => {
-  console.log(data)
   return fetch(`${BASE_URL}/movies`, {
     method: 'POST',
     headers: {
