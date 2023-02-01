@@ -10,7 +10,7 @@ function MoviesCard(props) {
   const minutes = duration - 60;
 
   function handleLike() {
-    setIsLiked(true);
+    setIsLiked(!isLiked);
     props.onSaveMovie({
       country: props.card.country,
       director: props.card.director,

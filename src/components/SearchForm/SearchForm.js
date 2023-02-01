@@ -4,7 +4,7 @@ function SearchForm(props) {
 
   return (
     <section className="search">
-      <form className="search__form" onSubmit={props.onSubmit}>
+      <form className="search__form" onSubmit={props.onSearchSubmit}>
         <div className="search__icon" />
         <input
           className="search__input"
@@ -17,7 +17,10 @@ function SearchForm(props) {
         />
         <button className="search__button" type="submit" />
       </form>
-      <FilterCheckbox />
+      <FilterCheckbox
+        onCheckboxChange={props.onCheckboxChange}
+        isChecked={props.isChecked}
+      />
     </section>
   );
 }

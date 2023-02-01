@@ -8,7 +8,7 @@ function MoviesCardList(props) {
     <Switch>
       <Route path="/movies">
         <section className="cards">
-          {props.movies && props.movies.map((data) => {
+          {props.movies.map((data) => {
             return <MoviesCard
               key={data.id}
               card={data}

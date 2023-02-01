@@ -1,26 +1,17 @@
-import { useState } from "react";
-
-function FilterCheckbox() {
-  const [isChecked, setIsChecked] = useState(false);
-
-  function handleCheckbox(evt) {
-    setIsChecked(!isChecked);
-
-    if (evt.target.checked) {
-      setIsChecked(true);
-    } else {
-      setIsChecked(false);
-    }
-  };
+function FilterCheckbox(props) {
 
   const checkboxClassName = (
-    `${isChecked ? 'checkbox__input-checked' : 'checkbox__input-disabled'}`
+    `${props.isChecked ? 'checkbox__input-checked' : 'checkbox__input-disabled'}`
   )
 
   return (
     <form>
-      <label className="checkbox" onClick={handleCheckbox}>
-        <input className="checkbox__input-hidden" type="checkbox" />
+      <label className="checkbox">
+        <input className="checkbox__input-hidden"
+          type="checkbox"
+          onChange={props.onCheckboxChange}
+          checked={props.isChecked}
+        />
         <div className={checkboxClassName} />
         <p className="checkbox__text">Короткометражки</p>
       </label>

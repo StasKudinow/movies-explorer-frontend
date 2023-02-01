@@ -20,14 +20,18 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function App() {
+
   const [currentUser, setCurrentUser] = useState({});
-  // const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+  const [search, setSearch] = useState('');
   const [isPopupWithMenuOpen, setIsPopupWithMenuOpen] = useState(false);
 
+  // console.log(movies)
+
   const history = useHistory();
-  console.log(loggedIn)
 
   function handlePopupWithMenuClick() {
     setIsPopupWithMenuOpen(true);
@@ -57,7 +61,6 @@ function App() {
       })
   };
 
-  // API
   function onRegister({ name, email, password }) {
     return auth.register(name, email, password)
       .then((res) => {
@@ -76,8 +79,37 @@ function App() {
   };
 
   function onLogout() {
-    localStorage.removeItem('jwt');
+    localStorage.clear();
     setLoggedIn(false);
+    setMovies([]);
+    setIsChecked(false);
+    setSearch('');
+  };
+
+  function handleCheckboxChange() {
+    setIsChecked(!isChecked);
+  };
+
+  function handleSearchChange(evt) {
+    setSearch(evt.target.value);
+  };
+
+  function handleSearchSubmit(evt) {
+    evt.preventDefault();
+
+    const movies = JSON.parse(localStorage.getItem('movies'));
+    const filtredMovies = movies.filter(movie => {
+      if (isChecked) {
+        return movie.duration <= 40 && movie.nameRU.toLowerCase().includes(search.toLowerCase());
+      } else {
+        return movie.nameRU.toLowerCase().includes(search.toLowerCase());
+      }
+    });
+    setMovies(filtredMovies);
+
+    localStorage.setItem('filtredMovies', JSON.stringify(filtredMovies));
+    localStorage.setItem('checkbox', JSON.stringify(isChecked));
+    localStorage.setItem('search', search);
   };
 
   function checkToken(jwt) {
@@ -101,11 +133,21 @@ function App() {
   }, []);
 
   useEffect(() => {
+    if(loggedIn) {
+      if (localStorage.filtredMovies) {
+        setMovies(JSON.parse(localStorage.getItem('filtredMovies')));
+        setIsChecked(JSON.parse(localStorage.getItem('checkbox')));
+        setSearch(localStorage.getItem('search'));
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loggedIn]);
+
+  useEffect(() => {
     if (loggedIn) {
       Promise.all([MainApi.getUserInfo(), MoviesApi.getInitialMovies()])
         .then(([userData, moviesData]) => {
           setCurrentUser(userData);
-          // setMovies(moviesData);
           localStorage.setItem('movies', JSON.stringify(moviesData));
           history.push('/movies');
         })
@@ -115,7 +157,8 @@ function App() {
     } else {
       history.push('/');
     }
-  }, [history, loggedIn]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loggedIn]);
 
   useEffect(() => {
     if (loggedIn) {
@@ -154,7 +197,12 @@ function App() {
               loggedIn={loggedIn}
               component={Movies}
               onSaveMovie={handleSaveMovie}
-              // movies={movies}
+              onSearchChange={handleSearchChange}
+              onSearchSubmit={handleSearchSubmit}
+              onCheckboxChange={handleCheckboxChange}
+              isChecked={isChecked}
+              movies={movies}
+              search={search}
             />
             <Footer />
           </Route>
