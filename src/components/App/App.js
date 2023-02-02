@@ -29,8 +29,6 @@ function App() {
   const [search, setSearch] = useState('');
   const [isPopupWithMenuOpen, setIsPopupWithMenuOpen] = useState(false);
 
-  // console.log(movies)
-
   const history = useHistory();
 
   function handlePopupWithMenuClick() {
@@ -52,9 +50,9 @@ function App() {
   };
 
   function handleSaveMovie(data) {
-    MainApi.saveMovie(data)
+    return MainApi.saveMovie(data)
       .then((movie) => {
-        setSavedMovies(movie, ...savedMovies);
+        setSavedMovies(...savedMovies, movie);
       })
       .catch((err) => {
         console.log(`Ошибка сохранения фильма: ${err}`);
@@ -98,16 +96,16 @@ function App() {
     evt.preventDefault();
 
     const movies = JSON.parse(localStorage.getItem('movies'));
-    const filtredMovies = movies.filter(movie => {
+    const filteredMovies = movies.filter(movie => {
       if (isChecked) {
         return movie.duration <= 40 && movie.nameRU.toLowerCase().includes(search.toLowerCase());
       } else {
         return movie.nameRU.toLowerCase().includes(search.toLowerCase());
       }
     });
-    setMovies(filtredMovies);
+    setMovies(filteredMovies);
 
-    localStorage.setItem('filtredMovies', JSON.stringify(filtredMovies));
+    localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
     localStorage.setItem('checkbox', JSON.stringify(isChecked));
     localStorage.setItem('search', search);
   };
@@ -134,8 +132,8 @@ function App() {
 
   useEffect(() => {
     if(loggedIn) {
-      if (localStorage.filtredMovies) {
-        setMovies(JSON.parse(localStorage.getItem('filtredMovies')));
+      if (localStorage.filteredMovies) {
+        setMovies(JSON.parse(localStorage.getItem('filteredMovies')));
         setIsChecked(JSON.parse(localStorage.getItem('checkbox')));
         setSearch(localStorage.getItem('search'));
       }
@@ -196,13 +194,14 @@ function App() {
               path="/movies"
               loggedIn={loggedIn}
               component={Movies}
-              onSaveMovie={handleSaveMovie}
               onSearchChange={handleSearchChange}
               onSearchSubmit={handleSearchSubmit}
               onCheckboxChange={handleCheckboxChange}
+              onSaveMovie={handleSaveMovie}
               isChecked={isChecked}
               movies={movies}
               search={search}
+              savedMovies={savedMovies}
             />
             <Footer />
           </Route>
@@ -216,6 +215,7 @@ function App() {
               path="/saved-movies"
               loggedIn={loggedIn}
               component={SavedMovies}
+              movies={movies}
               savedMovies={savedMovies}
             />
             <Footer />

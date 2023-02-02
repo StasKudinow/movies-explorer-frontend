@@ -16,7 +16,7 @@ function Movies(props) {
       <MoviesCardList
         onSaveMovie={props.onSaveMovie}
         movies={props.movies}
-        isChecked={props.isChecked}
+        savedMovies={props.savedMovies}
       />
       <MoviesMore />
     </main>

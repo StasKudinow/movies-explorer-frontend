@@ -1,28 +1,28 @@
-import { useState } from "react";
+import { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 function MoviesCard(props) {
   const [isLiked, setIsLiked] = useState(false);
 
-  const image = 'https://api.nomoreparties.co' + props.card.image.url;
-  const thumbnail = 'https://api.nomoreparties.co' + props.card.image.formats.thumbnail.url;
-  const duration = props.card.duration;
-  const minutes = duration - 60;
+  console.log(props.movieId)
+
+  const duration = props.duration;
+  const minutes = duration % 60;
 
   function handleLike() {
-    setIsLiked(!isLiked);
+    setIsLiked(true);
     props.onSaveMovie({
-      country: props.card.country,
-      director: props.card.director,
-      duration: props.card.duration,
-      year: props.card.year,
-      description: props.card.description,
-      image: image,
-      trailerLink: props.card.trailerLink,
-      thumbnail: thumbnail,
-      movieId: props.card.id,
-      nameRU: props.card.nameRU,
-      nameEN: props.card.nameEN
+      country: props.country,
+      director: props.director,
+      duration: duration,
+      year: props.year,
+      description: props.description,
+      image: props.image,
+      trailerLink: props.trailerLink,
+      thumbnail: props.thumbnail,
+      movieId: props.id,
+      nameRU: props.nameRU,
+      nameEN: props.nameEN,
     });
   };
 
@@ -37,20 +37,20 @@ function MoviesCard(props) {
   return (
     <Switch>
       <Route path="/movies">
-        <div className="cards__card" key={props.card.id}>
-          <img className="cards__image" src={image} alt={props.card.nameRU} />
+        <div className="cards__card" key={props.id}>
+          <img className="cards__image" src={props.image} alt={props.nameRU} />
           <div tooltip={tooltip} className="cards__info" onClick={handleLike}>
-            <p className="cards__title">{props.card.nameRU}</p>
+            <p className="cards__title">{props.nameRU}</p>
             <button className={cardLikeClassName} type="button" />
           </div>
           <p className="cards__time">{duration > 60 ? `1ч ${minutes}м` : `${duration}м`}</p>
         </div>
       </Route>
       <Route path="/saved-movies">
-        <div className="cards__card" key={props.card.id}>
-          <img className="cards__image" src={image} alt={props.card.nameRU} />
+        <div className="cards__card" key={props.movieId}>
+          <img className="cards__image" src={props.image} alt={props.nameRU} />
           <div className="cards__info">
-            <p className="cards__title">{props.card.nameRU}</p>
+            <p className="cards__title">{props.nameRU}</p>
             <button className='cards__button cards__button_delete' type="button" />
           </div>
           <p className="cards__time">{duration > 60 ? `1ч ${minutes}м` : `${duration}м`}</p>

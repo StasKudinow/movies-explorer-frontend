@@ -79,6 +79,10 @@
   background-image: url(../../images/card_delete_active.svg);
 }
 
+.cards__button_delete:hover {
+  cursor: pointer;
+}
+
 .cards__time {
   margin: 0;
   font-size: 11px;
