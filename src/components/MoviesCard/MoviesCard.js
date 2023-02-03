@@ -4,8 +4,6 @@ import { Route, Switch } from 'react-router-dom';
 function MoviesCard(props) {
   const [isLiked, setIsLiked] = useState(false);
 
-  console.log(props.movieId)
-
   const duration = props.duration;
   const minutes = duration % 60;
 
@@ -24,6 +22,10 @@ function MoviesCard(props) {
       nameRU: props.nameRU,
       nameEN: props.nameEN,
     });
+  };
+
+  function handleDelete() {
+    props.onDeleteMovie(props.currentMovie);
   };
 
   const cardLikeClassName = (
@@ -51,7 +53,7 @@ function MoviesCard(props) {
           <img className="cards__image" src={props.image} alt={props.nameRU} />
           <div className="cards__info">
             <p className="cards__title">{props.nameRU}</p>
-            <button className='cards__button cards__button_delete' type="button" />
+            <button className='cards__button cards__button_delete' type="button" onClick={handleDelete} />
           </div>
           <p className="cards__time">{duration > 60 ? `1ч ${minutes}м` : `${duration}м`}</p>
         </div>

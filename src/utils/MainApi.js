@@ -66,3 +66,14 @@ export const saveMovie = (data) => {
   })
   .then(checkResponse)
 };
+
+export const deleteMovie = (id) => {
+  return fetch(`${BASE_URL}/movies/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(checkResponse)
+};

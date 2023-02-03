@@ -34,6 +34,7 @@ function MoviesCardList(props) {
           {props.savedMovies.map((movie) => {
             return <MoviesCard
               key={movie.movieId}
+              currentMovie={movie}
               nameRU={movie.nameRU}
               image={movie.image}
               duration={movie.duration}
@@ -45,7 +46,7 @@ function MoviesCardList(props) {
               thumbnail={movie.thumbnail}
               movieId={movie.movieId}
               nameEN={movie.nameEN}
-              onSaveMovie={props.onSaveMovie}
+              onDeleteMovie={props.onDeleteMovie}
             />
           })}
         </section>

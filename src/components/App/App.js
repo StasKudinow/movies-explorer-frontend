@@ -1,4 +1,4 @@
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 import * as auth from '../../utils/auth';
@@ -29,7 +29,10 @@ function App() {
   const [search, setSearch] = useState('');
   const [isPopupWithMenuOpen, setIsPopupWithMenuOpen] = useState(false);
 
+  console.log(savedMovies);
+
   const history = useHistory();
+  const location = useLocation();
 
   function handlePopupWithMenuClick() {
     setIsPopupWithMenuOpen(true);
@@ -52,10 +55,22 @@ function App() {
   function handleSaveMovie(data) {
     return MainApi.saveMovie(data)
       .then((movie) => {
-        setSavedMovies(...savedMovies, movie);
+        setSavedMovies([...savedMovies, movie]);
+        localStorage.setItem('savedMovies', JSON.stringify([...savedMovies, movie]));
       })
       .catch((err) => {
         console.log(`Ошибка сохранения фильма: ${err}`);
+      })
+  };
+
+  function handleDeleteMovie(movie) {
+    console.log(movie)
+    MainApi.deleteMovie(movie._id)
+      .then(() => {
+        setSavedMovies((state) => state.filter((item) => item._id !== movie._id && item));
+      })
+      .catch((err) => {
+        console.log(`Ошибка удаления фильма: ${err}`);
       })
   };
 
@@ -84,30 +99,60 @@ function App() {
     setSearch('');
   };
 
-  function handleCheckboxChange() {
-    setIsChecked(!isChecked);
-  };
+  function filterMovies() {
+    const movies = JSON.parse(localStorage.getItem('movies'));
+    const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+    const checkbox = JSON.parse(localStorage.getItem('checkbox'));
 
-  function handleSearchChange(evt) {
-    setSearch(evt.target.value);
+    if (location.pathname === '/movies') {
+      const filteredMovies = movies.filter(movie => {
+        if (checkbox) {
+          return movie.duration <= 40 && movie.nameRU.toLowerCase().includes(search.toLowerCase());
+        } else {
+          return movie.nameRU.toLowerCase().includes(search.toLowerCase());
+        }
+      });
+      setMovies(filteredMovies);
+      localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+
+    } else if (location.pathname === '/saved-movies') {
+      const filteredMovies = savedMovies.filter(movie => {
+        if (checkbox) {
+          return movie.duration <= 40 && movie.nameRU.toLowerCase().includes(search.toLowerCase());
+        } else {
+          return movie.nameRU.toLowerCase().includes(search.toLowerCase());
+        }
+      });
+      setSavedMovies(filteredMovies);
+      localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+    }
+
+    localStorage.setItem('search', search);
   };
 
   function handleSearchSubmit(evt) {
     evt.preventDefault();
+    filterMovies();
+  };
 
-    const movies = JSON.parse(localStorage.getItem('movies'));
-    const filteredMovies = movies.filter(movie => {
-      if (isChecked) {
-        return movie.duration <= 40 && movie.nameRU.toLowerCase().includes(search.toLowerCase());
-      } else {
-        return movie.nameRU.toLowerCase().includes(search.toLowerCase());
-      }
-    });
-    setMovies(filteredMovies);
+  function handleCheckboxChange() {
+    if (!isChecked) {
+      setIsChecked(true);
+      localStorage.setItem('checkbox', JSON.stringify(true));
+    } else {
+      setIsChecked(false);
+      localStorage.setItem('checkbox', JSON.stringify(false));
+    }
+    filterMovies();
+    if (location.pathname === '/movies') {
+      setMovies(JSON.parse(localStorage.getItem('filteredMovies')));
+    } else if (location.pathname === 'saved-movies') {
+      setSavedMovies(JSON.parse(localStorage.getItem('filteredMovies')));
+    }
+  };
 
-    localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
-    localStorage.setItem('checkbox', JSON.stringify(isChecked));
-    localStorage.setItem('search', search);
+  function handleSearchChange(evt) {
+    setSearch(evt.target.value);
   };
 
   function checkToken(jwt) {
@@ -163,11 +208,13 @@ function App() {
       MainApi.getSavedMovies()
         .then((savedMoviesData) => {
           setSavedMovies(savedMoviesData);
+          localStorage.setItem('savedMovies', JSON.stringify(savedMoviesData));
         })
         .catch((err) => {
           console.log(`Ошибка получения сохраненных фильмов: ${err}`);
         })
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
 
   return (
@@ -194,13 +241,13 @@ function App() {
               path="/movies"
               loggedIn={loggedIn}
               component={Movies}
+              onSaveMovie={handleSaveMovie}
               onSearchChange={handleSearchChange}
               onSearchSubmit={handleSearchSubmit}
               onCheckboxChange={handleCheckboxChange}
-              onSaveMovie={handleSaveMovie}
               isChecked={isChecked}
-              movies={movies}
               search={search}
+              movies={movies}
               savedMovies={savedMovies}
             />
             <Footer />
@@ -215,6 +262,12 @@ function App() {
               path="/saved-movies"
               loggedIn={loggedIn}
               component={SavedMovies}
+              onDeleteMovie={handleDeleteMovie}
+              onSearchChange={handleSearchChange}
+              onSearchSubmit={handleSearchSubmit}
+              onCheckboxChange={handleCheckboxChange}
+              isChecked={isChecked}
+              search={search}
               movies={movies}
               savedMovies={savedMovies}
             />

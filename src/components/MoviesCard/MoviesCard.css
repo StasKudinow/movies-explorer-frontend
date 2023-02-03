@@ -79,7 +79,7 @@
   background-image: url(../../images/card_delete_active.svg);
 }
 
-.cards__button_delete:hover {
+.cards__button:hover {
   cursor: pointer;
 }
 
