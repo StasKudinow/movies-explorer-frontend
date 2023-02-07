@@ -1,32 +1,54 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 function MoviesCard(props) {
   const [isLiked, setIsLiked] = useState(false);
 
+  // console.log(isLiked)
+
   const duration = props.duration;
   const minutes = duration % 60;
 
   function handleLike() {
-    setIsLiked(true);
-    props.onSaveMovie({
-      country: props.country,
-      director: props.director,
-      duration: duration,
-      year: props.year,
-      description: props.description,
-      image: props.image,
-      trailerLink: props.trailerLink,
-      thumbnail: props.thumbnail,
-      movieId: props.id,
-      nameRU: props.nameRU,
-      nameEN: props.nameEN,
-    });
+    if (isLiked === false) {
+      setIsLiked(true);
+      props.onSaveMovie({
+        country: props.country,
+        director: props.director,
+        duration: duration,
+        year: props.year,
+        description: props.description,
+        image: props.image,
+        trailerLink: props.trailerLink,
+        thumbnail: props.thumbnail,
+        movieId: props.id,
+        nameRU: props.nameRU,
+        nameEN: props.nameEN,
+      });
+    } else if (isLiked === true) {
+      props.savedMovies.forEach((item) => {
+        if (props.id === item.movieId) {
+          props.onDeleteMovie(item._id)
+        }
+      });
+      setIsLiked(false);
+    }
   };
 
   function handleDelete() {
-    props.onDeleteMovie(props.currentMovie);
+    props.onDeleteMovie(props.currentMovie._id);
   };
+
+  useEffect(() => {
+    props.movies.forEach(() => {
+      // eslint-disable-next-line array-callback-return
+      return props.savedMovies.find((i) => {
+        if (i.movieId === props.id) {
+          setIsLiked(true);
+        }
+      });
+    });
+  }, [props.id, props.movies, props.savedMovies]);
 
   const cardLikeClassName = (
     `cards__button ${isLiked ? 'cards__button_like' : ''}`

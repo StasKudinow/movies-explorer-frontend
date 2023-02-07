@@ -13,6 +13,7 @@ function MoviesCardList(props) {
           {props.movies.map((movie) => {
             return <MoviesCard
               key={movie.id}
+              currentMovie={movie}
               nameRU={movie.nameRU}
               image={BASE_MOVIES_URL + movie.image.url}
               duration={movie.duration}
@@ -24,7 +25,10 @@ function MoviesCardList(props) {
               thumbnail={BASE_MOVIES_URL + movie.image.formats.thumbnail.url}
               id={movie.id}
               nameEN={movie.nameEN}
+              onDeleteMovie={props.onDeleteMovie}
               onSaveMovie={props.onSaveMovie}
+              savedMovies={props.savedMovies}
+              movies={props.movies}
             />
           })}
         </section>
@@ -47,6 +51,8 @@ function MoviesCardList(props) {
               movieId={movie.movieId}
               nameEN={movie.nameEN}
               onDeleteMovie={props.onDeleteMovie}
+              savedMovies={props.savedMovies}
+              movies={props.movies}
             />
           })}
         </section>

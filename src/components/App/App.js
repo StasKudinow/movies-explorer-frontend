@@ -29,8 +29,6 @@ function App() {
   const [search, setSearch] = useState('');
   const [isPopupWithMenuOpen, setIsPopupWithMenuOpen] = useState(false);
 
-  console.log(savedMovies);
-
   const history = useHistory();
   const location = useLocation();
 
@@ -55,19 +53,18 @@ function App() {
   function handleSaveMovie(data) {
     return MainApi.saveMovie(data)
       .then((movie) => {
-        setSavedMovies([...savedMovies, movie]);
-        localStorage.setItem('savedMovies', JSON.stringify([...savedMovies, movie]));
+        setSavedMovies([movie, ...savedMovies]);
+        localStorage.setItem('savedMovies', JSON.stringify([movie, ...savedMovies]));
       })
       .catch((err) => {
         console.log(`Ошибка сохранения фильма: ${err}`);
       })
   };
 
-  function handleDeleteMovie(movie) {
-    console.log(movie)
-    MainApi.deleteMovie(movie._id)
+  function handleDeleteMovie(id) {
+    MainApi.deleteMovie(id)
       .then(() => {
-        setSavedMovies((state) => state.filter((item) => item._id !== movie._id && item));
+        setSavedMovies((state) => state.filter((item) => item._id !== id && item));
       })
       .catch((err) => {
         console.log(`Ошибка удаления фильма: ${err}`);
@@ -143,10 +140,11 @@ function App() {
       setIsChecked(false);
       localStorage.setItem('checkbox', JSON.stringify(false));
     }
-    filterMovies();
     if (location.pathname === '/movies') {
+      filterMovies();
       setMovies(JSON.parse(localStorage.getItem('filteredMovies')));
     } else if (location.pathname === 'saved-movies') {
+      filterMovies();
       setSavedMovies(JSON.parse(localStorage.getItem('filteredMovies')));
     }
   };
@@ -242,6 +240,7 @@ function App() {
               loggedIn={loggedIn}
               component={Movies}
               onSaveMovie={handleSaveMovie}
+              onDeleteMovie={handleDeleteMovie}
               onSearchChange={handleSearchChange}
               onSearchSubmit={handleSearchSubmit}
               onCheckboxChange={handleCheckboxChange}
