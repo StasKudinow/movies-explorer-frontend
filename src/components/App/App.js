@@ -1,5 +1,7 @@
 import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
+
 
 import * as auth from '../../utils/auth';
 import * as MainApi from '../../utils/MainApi';
@@ -21,6 +23,20 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function App() {
 
+  const largeSize = useMediaQuery({ query: '(min-width: 1280px)' });
+  const mediumSize = useMediaQuery({ query: '(min-width: 768px)' });
+  const smallSize = useMediaQuery({ query: '(min-width: 320px)' });
+
+  let item;
+
+  if (largeSize) {
+    item = 16;
+  } else if (mediumSize) {
+    item = 8;
+  } else if (smallSize) {
+    item = 5;
+  }
+
   const [currentUser, setCurrentUser] = useState({});
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
@@ -28,9 +44,14 @@ function App() {
   const [isChecked, setIsChecked] = useState(false);
   const [search, setSearch] = useState('');
   const [isPopupWithMenuOpen, setIsPopupWithMenuOpen] = useState(false);
+  const [next, setNext] = useState(item);
+  const [isClicked, setIsClicked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const history = useHistory();
   const location = useLocation();
+
+  console.log(movies.length)
 
   function handlePopupWithMenuClick() {
     setIsPopupWithMenuOpen(true);
@@ -96,10 +117,30 @@ function App() {
     setSearch('');
   };
 
+  function handleShowMoreClick() {
+    setIsClicked(true);
+
+    if (largeSize) {
+      setNext(next + 4);
+    } else if (mediumSize) {
+      setNext(next + 2);
+    } else if (smallSize) {
+      setNext(next + 2);
+    }
+  };
+
   function filterMovies() {
     const movies = JSON.parse(localStorage.getItem('movies'));
     const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
     const checkbox = JSON.parse(localStorage.getItem('checkbox'));
+
+    if (largeSize) {
+      setNext(16);
+    } else if (mediumSize) {
+      setNext(8);
+    } else if (smallSize) {
+      setNext(5);
+    }
 
     if (location.pathname === '/movies') {
       const filteredMovies = movies.filter(movie => {
@@ -129,7 +170,12 @@ function App() {
 
   function handleSearchSubmit(evt) {
     evt.preventDefault();
-    filterMovies();
+    setIsLoading(true);
+    setTimeout(() => {
+      filterMovies();
+      setIsLoading(false);
+    }, '500');
+    
   };
 
   function handleCheckboxChange() {
@@ -174,7 +220,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if(loggedIn) {
+    if (loggedIn) {
       if (localStorage.filteredMovies) {
         setMovies(JSON.parse(localStorage.getItem('filteredMovies')));
         setIsChecked(JSON.parse(localStorage.getItem('checkbox')));
@@ -186,6 +232,7 @@ function App() {
 
   useEffect(() => {
     if (loggedIn) {
+      setIsLoading(true);
       Promise.all([MainApi.getUserInfo(), MoviesApi.getInitialMovies()])
         .then(([userData, moviesData]) => {
           setCurrentUser(userData);
@@ -195,6 +242,9 @@ function App() {
         .catch((err) => {
           console.log(`Ошибка получения данных: ${err}`);
         })
+        .finally(() => {
+          setIsLoading(false);
+        })
     } else {
       history.push('/');
     }
@@ -203,6 +253,7 @@ function App() {
 
   useEffect(() => {
     if (loggedIn) {
+      setIsLoading(true);
       MainApi.getSavedMovies()
         .then((savedMoviesData) => {
           setSavedMovies(savedMoviesData);
@@ -210,6 +261,9 @@ function App() {
         })
         .catch((err) => {
           console.log(`Ошибка получения сохраненных фильмов: ${err}`);
+        })
+        .finally(() => {
+          setIsLoading(false);
         })
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -239,15 +293,20 @@ function App() {
               path="/movies"
               loggedIn={loggedIn}
               component={Movies}
+              onSetMovies={setMovies}
               onSaveMovie={handleSaveMovie}
               onDeleteMovie={handleDeleteMovie}
               onSearchChange={handleSearchChange}
               onSearchSubmit={handleSearchSubmit}
               onCheckboxChange={handleCheckboxChange}
+              onShowMoreClick={handleShowMoreClick}
               isChecked={isChecked}
               search={search}
               movies={movies}
               savedMovies={savedMovies}
+              isClicked={isClicked}
+              isLoading={isLoading}
+              next={next}
             />
             <Footer />
           </Route>

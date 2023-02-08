@@ -3,9 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 
 function MoviesCard(props) {
   const [isLiked, setIsLiked] = useState(false);
-
-  // console.log(isLiked)
-
   const duration = props.duration;
   const minutes = duration % 60;
 
@@ -58,10 +55,14 @@ function MoviesCard(props) {
     `${isLiked ? 'Сохранено' : 'Сохранить'}`
   );
 
+  const cardClassName = (
+    `cards__card ${props.isClicked ? 'cards__card_visible' : ''}`
+  );
+
   return (
     <Switch>
       <Route path="/movies">
-        <div className="cards__card" key={props.id}>
+        <div className={cardClassName} key={props.id}>
           <img className="cards__image" src={props.image} alt={props.nameRU} />
           <div tooltip={tooltip} className="cards__info" onClick={handleLike}>
             <p className="cards__title">{props.nameRU}</p>

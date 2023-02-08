@@ -5,10 +5,18 @@
   flex-direction: column;
 }
 
+.cards__card.cards__card_visible {
+  overflow: visible;
+}
+
+.cards__card:nth-child(n + 5) {
+  overflow: hidden;
+}
+
 .cards__image {
   margin-bottom: 10px;
   width: 270px;
-  height: 151px;
+  height: 150px;
 }
 
 .cards__info {

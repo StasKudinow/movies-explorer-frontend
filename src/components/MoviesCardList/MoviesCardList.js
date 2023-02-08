@@ -10,7 +10,7 @@ function MoviesCardList(props) {
     <Switch>
       <Route path="/movies">
         <section className="cards">
-          {props.movies.map((movie) => {
+          {props.movies.slice(0, props.next).map((movie) => {
             return <MoviesCard
               key={movie.id}
               currentMovie={movie}
@@ -29,6 +29,7 @@ function MoviesCardList(props) {
               onSaveMovie={props.onSaveMovie}
               savedMovies={props.savedMovies}
               movies={props.movies}
+              isClicked={props.isClicked}
             />
           })}
         </section>
