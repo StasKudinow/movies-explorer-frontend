@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { Link } from "react-router-dom";
 
 import Logo from "../Logo/Logo";
@@ -6,38 +6,22 @@ import Auth from "../Auth/Auth";
 
 function Register({ onRegister, onLogin }) {
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [isError, setIsError] = useState(false);
 
-  function handleNameChange(evt) {
-    setName(evt.target.value);
-  };
-
-  function handleEmailChange(evt) {
-    setEmail(evt.target.value);
-  };
-
-  function handlePasswordChange(evt) {
-    setPassword(evt.target.value);
-  };
-
-  const resetForm = useCallback(() => {
-    setName('');
-    setEmail('');
-    setPassword('');
-  }, []);
-
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    onRegister({ name, email, password })
-      .then(resetForm)
+  function handleSubmit(values) {
+    onRegister(values.name, values.email, values.password)
       .then(() => {
-        onLogin({ email, password });
+        onLogin(values.email, values.password);
         console.log('Success!');
       })
       .catch((err) => {
-        console.log(`Ошибка: ${err}`);
+        if (err) {
+          setIsError(true);
+          setTimeout(() => {
+            setIsError(false);
+          }, '5000');
+          console.log(`Ошибка: ${err}`);
+        }
       })
   };
 
@@ -47,12 +31,7 @@ function Register({ onRegister, onLogin }) {
       <h1 className="auth__title">Добро пожаловать!</h1>
       <Auth
         onSubmit={handleSubmit}
-        onNameChange={handleNameChange}
-        onEmailChange={handleEmailChange}
-        onPasswordChange={handlePasswordChange}
-        name={name}
-        email={email}
-        password={password}
+        isError={isError}
         button="Зарегистрироваться"
       />
       <div className="auth__redirect">

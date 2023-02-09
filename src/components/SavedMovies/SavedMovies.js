@@ -11,6 +11,8 @@ function SavedMovies(props) {
         onCheckboxChange={props.onCheckboxChange}
         isChecked={props.isChecked}
         search={props.search}
+        tooltip={props.tooltip}
+        tooltipMessage={props.tooltipMessage}
       />
       <MoviesCardList
         onDeleteMovie={props.onDeleteMovie}

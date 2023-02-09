@@ -5,8 +5,6 @@ import Preloader from "../Preloader/Preloader";
 
 function Movies(props) {
 
-  console.log(props.next)
-
   let length;
   let preloader;
 
@@ -30,6 +28,8 @@ function Movies(props) {
         onCheckboxChange={props.onCheckboxChange}
         isChecked={props.isChecked}
         search={props.search}
+        tooltip={props.tooltip}
+        tooltipMessage={props.tooltipMessage}
       />
       {preloader}
       <MoviesCardList

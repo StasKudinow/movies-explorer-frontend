@@ -47,11 +47,11 @@ function App() {
   const [next, setNext] = useState(item);
   const [isClicked, setIsClicked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [tooltip, setTooltip] = useState(false);
+  const [tooltipMessage, setTooltipMessage] = useState('');
 
   const history = useHistory();
   const location = useLocation();
-
-  console.log(movies.length)
 
   function handlePopupWithMenuClick() {
     setIsPopupWithMenuOpen(true);
@@ -65,6 +65,10 @@ function App() {
     MainApi.updateUserInfo(data)
       .then((data) => {
         setCurrentUser(data);
+        setTooltip(true);
+        setTimeout(() => {
+          setTooltip(false);
+        }, '5000');
       })
       .catch((err) => {
         console.log(`Ошибка обновления данных пользователя: ${err}`);
@@ -92,14 +96,14 @@ function App() {
       })
   };
 
-  function onRegister({ name, email, password }) {
+  function onRegister(name, email, password) {
     return auth.register(name, email, password)
       .then((res) => {
         return res;
       })
   };
 
-  function onLogin({ email, password }) {
+  function onLogin(email, password) {
     return auth.authorize(email, password)
       .then((res) => {
         if (res.token) {
@@ -129,6 +133,8 @@ function App() {
     }
   };
 
+
+  // ChatGPT filter function
   function filterMovies() {
     const movies = JSON.parse(localStorage.getItem('movies'));
     const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
@@ -150,6 +156,7 @@ function App() {
           return movie.nameRU.toLowerCase().includes(search.toLowerCase());
         }
       });
+
       setMovies(filteredMovies);
       localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
 
@@ -161,21 +168,39 @@ function App() {
           return movie.nameRU.toLowerCase().includes(search.toLowerCase());
         }
       });
+
       setSavedMovies(filteredMovies);
       localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
     }
 
+    if (JSON.parse(localStorage.getItem('filteredMovies')).length === 0) {
+      setTooltip(true);
+      setTooltipMessage('Ничего не найдено!');
+      setTimeout(() => {
+        setTooltip(false);
+      }, '5000');
+    }
+
     localStorage.setItem('search', search);
   };
+  // end
 
   function handleSearchSubmit(evt) {
     evt.preventDefault();
-    setIsLoading(true);
-    setTimeout(() => {
-      filterMovies();
-      setIsLoading(false);
-    }, '500');
-    
+
+    if (search.length === 0) {
+      setTooltip(true);
+      setTooltipMessage('Нужно ввести ключевое слово!');
+      setTimeout(() => {
+        setTooltip(false);
+      }, '5000');
+    } else {
+      setIsLoading(true);
+      setTimeout(() => {
+        filterMovies();
+        setIsLoading(false);
+      }, '500');
+    }
   };
 
   function handleCheckboxChange() {
@@ -187,12 +212,11 @@ function App() {
       localStorage.setItem('checkbox', JSON.stringify(false));
     }
     if (location.pathname === '/movies') {
-      filterMovies();
       setMovies(JSON.parse(localStorage.getItem('filteredMovies')));
     } else if (location.pathname === 'saved-movies') {
-      filterMovies();
       setSavedMovies(JSON.parse(localStorage.getItem('filteredMovies')));
     }
+    filterMovies();
   };
 
   function handleSearchChange(evt) {
@@ -307,6 +331,8 @@ function App() {
               isClicked={isClicked}
               isLoading={isLoading}
               next={next}
+              tooltip={tooltip}
+              tooltipMessage={tooltipMessage}
             />
             <Footer />
           </Route>
@@ -328,6 +354,8 @@ function App() {
               search={search}
               movies={movies}
               savedMovies={savedMovies}
+              tooltip={tooltip}
+              tooltipMessage={tooltipMessage}
             />
             <Footer />
           </Route>
@@ -343,6 +371,7 @@ function App() {
               component={Profile}
               onUpdateUserInfo={handleUpdateUserInfo}
               onLogout={onLogout}
+              tooltip={tooltip}
             />
           </Route>
 

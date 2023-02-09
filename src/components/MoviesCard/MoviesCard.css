@@ -14,9 +14,14 @@
 }
 
 .cards__image {
-  margin-bottom: 10px;
   width: 270px;
   height: 150px;
+}
+
+.cards__trailer-link {
+  width: 270px;
+  height: 150px;
+  margin-bottom: 10px;
 }
 
 .cards__info {

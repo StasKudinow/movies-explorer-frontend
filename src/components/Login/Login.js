@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { Link } from "react-router-dom";
 
 import Logo from "../Logo/Logo";
@@ -6,27 +6,15 @@ import Auth from "../Auth/Auth";
 
 function Login({ onLogin }) {
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [isError, setIsError] = useState(false);
 
-  function handleEmailChange(evt) {
-    setEmail(evt.target.value);
-  };
-
-  function handlePasswordChange(evt) {
-    setPassword(evt.target.value);
-  };
-
-  const resetForm = useCallback(() => {
-    setEmail('');
-    setPassword('');
-  }, []);
-
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    onLogin({ email, password })
-      .then(resetForm)
+  function handleSubmit(values) {
+    onLogin(values.email, values.password)
       .catch((err) => {
+        setIsError(true);
+        setTimeout(() => {
+          setIsError(false);
+        }, '5000');
         console.log(`Ошибка: ${err}`);
       })
   };
@@ -37,10 +25,7 @@ function Login({ onLogin }) {
       <h1 className="auth__title">Рады видеть!</h1>
       <Auth
         onSubmit={handleSubmit}
-        onEmailChange={handleEmailChange}
-        onPasswordChange={handlePasswordChange}
-        email={email}
-        password={password}
+        isError={isError}
         button="Войти"
       />
       <div className="auth__redirect">

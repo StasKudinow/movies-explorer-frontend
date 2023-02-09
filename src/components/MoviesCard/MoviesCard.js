@@ -63,7 +63,9 @@ function MoviesCard(props) {
     <Switch>
       <Route path="/movies">
         <div className={cardClassName} key={props.id}>
-          <img className="cards__image" src={props.image} alt={props.nameRU} />
+          <a className="cards__trailer-link" href={props.trailerLink} target="_blank" rel="noreferrer">
+            <img className="cards__image" src={props.image} alt={props.nameRU} />
+          </a>
           <div tooltip={tooltip} className="cards__info" onClick={handleLike}>
             <p className="cards__title">{props.nameRU}</p>
             <button className={cardLikeClassName} type="button" />
@@ -73,7 +75,9 @@ function MoviesCard(props) {
       </Route>
       <Route path="/saved-movies">
         <div className="cards__card" key={props.movieId}>
-          <img className="cards__image" src={props.image} alt={props.nameRU} />
+          <a className="cards__trailer-link" href={props.trailerLink} target="_blank" rel="noreferrer">
+            <img className="cards__image" src={props.image} alt={props.nameRU} />
+          </a>
           <div className="cards__info">
             <p className="cards__title">{props.nameRU}</p>
             <button className='cards__button cards__button_delete' type="button" onClick={handleDelete} />

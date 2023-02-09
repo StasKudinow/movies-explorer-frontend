@@ -1,107 +1,121 @@
-// import { useState } from "react";
 import { Switch, Route } from "react-router-dom";
+import { Formik, Form, Field } from 'formik';
+
+import { validateName, validateEmail, validatePassword } from "../Validate/Validate";
 
 function Auth(props) {
-  // const [name, setName] = useState('');
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-  // const [isNameError, setIsNameError] = useState(false);
-  // const [isEmailError, setIsEmailError] = useState(false);
-  // const [isPasswordError, setIsPasswordError] = useState(false);
 
-  // function handleNameChange(e) {
-  //   setName(e.target.value);
-  //   if (e.target.value.length === 1 || e.target.value.length === 2 || e.target.value.length >= 30) {
-  //     setIsNameError(true);
-  //   } else {
-  //     setIsNameError(false);
-  //   }
-  // };
+  const tooltipRegister = (
+    `auth__tooltip ${props.isError ? 'auth__tooltip_active' : ''}`
+  );
 
-  // function handleEmailChange(e) {
-  //   setEmail(e.target.value);
-  //   if (e.target.value.length === 1 || e.target.value.length === 2 || e.target.value.length >= 30) {
-  //     setIsEmailError(true);
-  //   } else {
-  //     setIsEmailError(false);
-  //   }
-  // };
-
-  // function handlePasswordChange(e) {
-  //   setPassword(e.target.value);
-  //   if (e.target.value.length === 1 || e.target.value.length === 2 || e.target.value.length >= 30) {
-  //     setIsPasswordError(true);
-  //   } else {
-  //     setIsPasswordError(false);
-  //   }
-  // };
+  const tooltipLogin = (
+    `auth__tooltip auth__tooltip_login ${props.isError ? 'auth__tooltip-login_active' : ''}`
+  );
 
   return (
     <Switch>
       <Route path="/signup">
-        <form className="auth__form" onSubmit={props.onSubmit}>
-          <p className="auth__input-text">Имя</p>
-          <input
-            // className={`auth__input ${isNameError ? 'auth__input_error-active' : ''}`}
-            className="auth__input"
-            type="text"
-            name="name"
-            value={props.name}
-            onChange={props.onNameChange}
-            required
-          />
-          {/* { isNameError && <span className="auth__input-error">Что-то пошло не так...</span> } */}
-          <p className="auth__input-text">E-mail</p>
-          <input
-            // className={`auth__input ${isEmailError ? 'auth__input_error-active' : ''}`}
-            className="auth__input"
-            type="email"
-            name="email"
-            value={props.email}
-            onChange={props.onEmailChange}
-            required
-          />
-          {/* { isEmailError && <span className="auth__input-error">Что-то пошло не так...</span> } */}
-          <p className="auth__input-text">Пароль</p>
-          <input
-            // className={`auth__input ${isPasswordError ? 'auth__input_error-active' : ''}`}
-            className="auth__input"
-            type="password"
-            name="password"
-            value={props.password}
-            onChange={props.onPasswordChange}
-            required
-          />
-          {/* { isPasswordError && <span className="auth__input-error">Что-то пошло не так...</span> } */}
-          <button className="auth__button" type="submit">{props.button}</button>
-        </form>
+        <Formik
+          initialValues={{
+            name: '',
+            email: '',
+            password: ''
+          }}
+          onSubmit={values => {
+            props.onSubmit(values);
+          }}
+        >
+          {({ errors, touched, handleChange, values }) => (
+            <Form className="auth__form" noValidate>
+              <p className="auth__input-text">Имя</p>
+              <Field
+                className={`auth__input ${errors.name && touched.name && 'auth__input_error-active'}`}
+                type="text"
+                name="name"
+                value={values.name}
+                onChange={handleChange}
+                validate={validateName}
+                required
+              />
+              {errors.name && touched.name && (
+                <span className="auth__input-error">{errors.name}</span>
+              )}
+              <p className="auth__input-text">E-mail</p>
+              <Field
+                className={`auth__input ${errors.email && touched.email && 'auth__input_error-active'}`}
+                type="email"
+                name="email"
+                value={values.email}
+                onChange={handleChange}
+                validate={validateEmail}
+                required
+              />
+              {errors.email && touched.email && (
+                <span className="auth__input-error">{errors.email}</span>
+              )}
+              <p className="auth__input-text">Пароль</p>
+              <Field
+                className={`auth__input ${errors.password && touched.password && 'auth__input_error-active'}`}
+                type="password"
+                name="password"
+                value={values.password}
+                onChange={handleChange}
+                validate={validatePassword}
+                required
+              />
+              {errors.password && touched.password && (
+                <span className="auth__input-error">{errors.password}</span>
+              )}
+              <div className={tooltipRegister}>Что-то пошло не так...</div>
+              <button className="auth__button" type="submit">{props.button}</button>
+            </Form>
+          )}
+        </Formik>
       </Route>
       <Route path="/signin">
-        <form className="auth__form" onSubmit={props.onSubmit}>
-          <p className="auth__input-text">E-mail</p>
-          <input
-            // className={`auth__input ${isEmailError ? 'auth__input_error-active' : ''}`}
-            className="auth__input"
-            type="email"
-            name="email"
-            value={props.email}
-            onChange={props.onEmailChange}
-            required
-          />
-          {/* { isEmailError && <span className="auth__input-error">Что-то пошло не так...</span> } */}
-          <p className="auth__input-text">Пароль</p>
-          <input
-            // className={`auth__input ${isPasswordError ? 'auth__input_error-active' : ''}`}
-            className="auth__input"
-            type="password"
-            name="password"
-            value={props.password}
-            onChange={props.onPasswordChange}
-            required
-          />
-          {/* { isPasswordError && <span className="auth__input-error">Что-то пошло не так...</span> } */}
-          <button className="auth__button auth__button_login" type="submit">{props.button}</button>
-        </form>
+        <Formik
+          initialValues={{
+            email: '',
+            password: ''
+          }}
+          onSubmit={values => {
+            props.onSubmit(values);
+          }}
+        >
+          {({ errors, touched, handleChange, values }) => (
+            <Form className="auth__form" noValidate>
+              <p className="auth__input-text">E-mail</p>
+              <Field
+                className={`auth__input ${errors.email && touched.email && 'auth__input_error-active'}`}
+                type="email"
+                name="email"
+                value={values.email}
+                onChange={handleChange}
+                validate={validateEmail}
+                required
+              />
+              {errors.email && touched.email && (
+                <span className="auth__input-error">{errors.email}</span>
+              )}
+              <p className="auth__input-text">Пароль</p>
+              <Field
+                className={`auth__input ${errors.password && touched.password && 'auth__input_error-active'}`}
+                type="password"
+                name="password"
+                value={values.password}
+                onChange={handleChange}
+                validate={validatePassword}
+                required
+              />
+              {errors.password && touched.password && (
+                <span className="auth__input-error">{errors.password}</span>
+              )}
+              <div className={tooltipLogin}>Что-то пошло не так...</div>
+              <button className="auth__button" type="submit">{props.button}</button>
+            </Form>
+          )}
+        </Formik>
       </Route>
     </Switch>
   );
