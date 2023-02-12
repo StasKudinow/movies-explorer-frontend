@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import { Formik, Form, Field } from 'formik';
 
@@ -5,12 +6,14 @@ import { validateName, validateEmail, validatePassword } from "../Validate/Valid
 
 function Auth(props) {
 
-  const tooltipRegister = (
-    `auth__tooltip ${props.isError ? 'auth__tooltip_active' : ''}`
+  const [disabled, setDisabled] = useState(false);
+
+  const buttonClassName = (
+    `auth__button ${disabled ? 'auth__button_disabled' : ''}`
   );
 
-  const tooltipLogin = (
-    `auth__tooltip auth__tooltip_login ${props.isError ? 'auth__tooltip-login_active' : ''}`
+  const tooltipClassName = (
+    `auth__tooltip ${props.isError ? 'auth__tooltip_active' : ''}`
   );
 
   return (
@@ -67,8 +70,13 @@ function Auth(props) {
               {errors.password && touched.password && (
                 <span className="auth__input-error">{errors.password}</span>
               )}
-              <div className={tooltipRegister}>Что-то пошло не так...</div>
-              <button className="auth__button" type="submit">{props.button}</button>
+              <button className={buttonClassName} type="submit" disabled={
+                errors.password && touched.password ?
+                setDisabled(true) : setDisabled(false)
+              }>
+                <span className={tooltipClassName}>Что-то пошло не так...</span>
+                {props.button}
+              </button>
             </Form>
           )}
         </Formik>
@@ -111,8 +119,13 @@ function Auth(props) {
               {errors.password && touched.password && (
                 <span className="auth__input-error">{errors.password}</span>
               )}
-              <div className={tooltipLogin}>Что-то пошло не так...</div>
-              <button className="auth__button" type="submit">{props.button}</button>
+              <button className={buttonClassName} type="submit" disabled={
+                errors.password && touched.password ?
+                setDisabled(true) : setDisabled(false)
+              }>
+                <span className={tooltipClassName}>Что-то пошло не так...</span>
+                {props.button}
+              </button>
             </Form>
           )}
         </Formik>

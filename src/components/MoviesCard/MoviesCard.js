@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 function MoviesCard(props) {
   const [isLiked, setIsLiked] = useState(false);
   const duration = props.duration;
+  const hours = Math.floor(duration / 60);
   const minutes = duration % 60;
 
   function handleLike() {
@@ -70,7 +71,7 @@ function MoviesCard(props) {
             <p className="cards__title">{props.nameRU}</p>
             <button className={cardLikeClassName} type="button" />
           </div>
-          <p className="cards__time">{duration > 60 ? `1ч ${minutes}м` : `${duration}м`}</p>
+          <p className="cards__time">{duration > 60 ? `${hours}ч ${minutes}м` : `${duration}м`}</p>
         </div>
       </Route>
       <Route path="/saved-movies">
@@ -82,7 +83,7 @@ function MoviesCard(props) {
             <p className="cards__title">{props.nameRU}</p>
             <button className='cards__button cards__button_delete' type="button" onClick={handleDelete} />
           </div>
-          <p className="cards__time">{duration > 60 ? `1ч ${minutes}м` : `${duration}м`}</p>
+          <p className="cards__time">{duration > 60 ? `${hours}ч ${minutes}м` : `${duration}м`}</p>
         </div>
       </Route>
     </Switch>

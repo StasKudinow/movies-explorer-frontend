@@ -74,13 +74,13 @@ function Profile(props) {
                 )}
               </div>
             </label>
-            <div className={tooltipClassName}>Данные были успешно изменены!</div>
             <button className={buttonClassName} type="submit" disabled={
               values.name === currentUser.name &&
               values.email === currentUser.email ?
               setDisabled(true) : setDisabled(false)
             }>
-              Редактировать
+              <span className={tooltipClassName}>Данные были успешно изменены!</span>
+              <p className="profile__edit-text">Редактировать</p>
             </button>
           </Form>
         )}

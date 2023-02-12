@@ -1,4 +1,4 @@
-import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { Route, Switch, Redirect, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
@@ -50,7 +50,6 @@ function App() {
   const [tooltip, setTooltip] = useState(false);
   const [tooltipMessage, setTooltipMessage] = useState('');
 
-  const history = useHistory();
   const location = useLocation();
 
   function handlePopupWithMenuClick() {
@@ -133,7 +132,6 @@ function App() {
     }
   };
 
-
   // ChatGPT filter function
   function filterMovies() {
     const movies = JSON.parse(localStorage.getItem('movies'));
@@ -160,8 +158,16 @@ function App() {
       setMovies(filteredMovies);
       localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
 
+      if (JSON.parse(localStorage.getItem('filteredMovies')).length === 0) {
+        setTooltip(true);
+        setTooltipMessage('Ничего не найдено!');
+        setTimeout(() => {
+          setTooltip(false);
+        }, '5000');
+      }
+
     } else if (location.pathname === '/saved-movies') {
-      const filteredMovies = savedMovies.filter(movie => {
+      const filteredSavedMovies = savedMovies.filter(movie => {
         if (checkbox) {
           return movie.duration <= 40 && movie.nameRU.toLowerCase().includes(search.toLowerCase());
         } else {
@@ -169,16 +175,16 @@ function App() {
         }
       });
 
-      setSavedMovies(filteredMovies);
-      localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
-    }
+      setSavedMovies(filteredSavedMovies);
+      localStorage.setItem('filteredSavedMovies', JSON.stringify(filteredSavedMovies));
 
-    if (JSON.parse(localStorage.getItem('filteredMovies')).length === 0) {
-      setTooltip(true);
-      setTooltipMessage('Ничего не найдено!');
-      setTimeout(() => {
-        setTooltip(false);
-      }, '5000');
+      if (JSON.parse(localStorage.getItem('filteredSavedMovies')).length === 0) {
+        setTooltip(true);
+        setTooltipMessage('Ничего не найдено!');
+        setTimeout(() => {
+          setTooltip(false);
+        }, '5000');
+      }
     }
 
     localStorage.setItem('search', search);
@@ -211,12 +217,12 @@ function App() {
       setIsChecked(false);
       localStorage.setItem('checkbox', JSON.stringify(false));
     }
-    if (location.pathname === '/movies') {
-      setMovies(JSON.parse(localStorage.getItem('filteredMovies')));
-    } else if (location.pathname === 'saved-movies') {
-      setSavedMovies(JSON.parse(localStorage.getItem('filteredMovies')));
+
+    if (movies.length !== 0) {
+      filterMovies();
+    } else if (location.pathname === '/saved-movies') {
+      filterMovies();
     }
-    filterMovies();
   };
 
   function handleSearchChange(evt) {
@@ -247,6 +253,7 @@ function App() {
     if (loggedIn) {
       if (localStorage.filteredMovies) {
         setMovies(JSON.parse(localStorage.getItem('filteredMovies')));
+        setSavedMovies(JSON.parse(localStorage.getItem('filteredSavedMovies')));
         setIsChecked(JSON.parse(localStorage.getItem('checkbox')));
         setSearch(localStorage.getItem('search'));
       }
@@ -257,34 +264,17 @@ function App() {
   useEffect(() => {
     if (loggedIn) {
       setIsLoading(true);
-      Promise.all([MainApi.getUserInfo(), MoviesApi.getInitialMovies()])
-        .then(([userData, moviesData]) => {
+      Promise.all([MainApi.getUserInfo(), MoviesApi.getInitialMovies(), MainApi.getSavedMovies()])
+        .then(([userData, moviesData, savedMoviesData]) => {
           setCurrentUser(userData);
-          localStorage.setItem('movies', JSON.stringify(moviesData));
-          history.push('/movies');
-        })
-        .catch((err) => {
-          console.log(`Ошибка получения данных: ${err}`);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        })
-    } else {
-      history.push('/');
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loggedIn]);
 
-  useEffect(() => {
-    if (loggedIn) {
-      setIsLoading(true);
-      MainApi.getSavedMovies()
-        .then((savedMoviesData) => {
+          localStorage.setItem('movies', JSON.stringify(moviesData));
+
           setSavedMovies(savedMoviesData);
           localStorage.setItem('savedMovies', JSON.stringify(savedMoviesData));
         })
         .catch((err) => {
-          console.log(`Ошибка получения сохраненных фильмов: ${err}`);
+          console.log(`Ошибка получения данных: ${err}`);
         })
         .finally(() => {
           setIsLoading(false);
@@ -390,6 +380,10 @@ function App() {
 
           <Route path="*">
             <PageNotFound />
+          </Route>
+
+          <Route exact path="/">
+            {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" />}
           </Route>
 
         </Switch>

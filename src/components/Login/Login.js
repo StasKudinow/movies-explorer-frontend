@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import Logo from "../Logo/Logo";
 import Auth from "../Auth/Auth";
@@ -8,8 +8,13 @@ function Login({ onLogin }) {
 
   const [isError, setIsError] = useState(false);
 
+  const history = useHistory();
+
   function handleSubmit(values) {
     onLogin(values.email, values.password)
+      .then(() => {
+        history.push('/movies');
+      })
       .catch((err) => {
         setIsError(true);
         setTimeout(() => {

@@ -37,6 +37,31 @@
   color: #000000;
 }
 
+.checkbox__tooltip {
+  width: 156px;
+  margin: 0;
+  padding: 3px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 1;
+  top: 20px;
+  right: 6px;
+  background-color: #DDDEE3;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  text-align: center;
+  pointer-events: none;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  transition: 0.8s 0.2s linear;
+  opacity: 0;
+}
+
+.checkbox__tooltip_active {
+  opacity: 1;
+  top: 40px;
+}
+
 @media screen and (max-width: 712px) {
   .checkbox {
     margin-top: 40px;
@@ -45,5 +70,9 @@
 
   .checkbox__text {
     font-size: 11px;
+  }
+
+  .checkbox__tooltip {
+    right: -6px;
   }
 }
