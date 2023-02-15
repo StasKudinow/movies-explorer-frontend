@@ -23,7 +23,8 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function App() {
 
-  const largeSize = useMediaQuery({ query: '(min-width: 1280px)' });
+  const largeSize = useMediaQuery({ query: '(min-width: 1150px)' });
+  const bigSize = useMediaQuery({ query: '(min-width: 880px)' });
   const mediumSize = useMediaQuery({ query: '(min-width: 768px)' });
   const smallSize = useMediaQuery({ query: '(min-width: 320px)' });
 
@@ -31,6 +32,8 @@ function App() {
 
   if (largeSize) {
     item = 16;
+  } else if (bigSize) {
+    item = 12;
   } else if (mediumSize) {
     item = 8;
   } else if (smallSize) {
@@ -40,7 +43,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState();
   const [isChecked, setIsChecked] = useState(false);
   const [search, setSearch] = useState('');
   const [isPopupWithMenuOpen, setIsPopupWithMenuOpen] = useState(false);
@@ -51,6 +54,9 @@ function App() {
   const [tooltipMessage, setTooltipMessage] = useState('');
 
   const location = useLocation();
+
+  console.log(currentUser)
+  console.log(loggedIn)
 
   function handlePopupWithMenuClick() {
     setIsPopupWithMenuOpen(true);
@@ -86,9 +92,11 @@ function App() {
   };
 
   function handleDeleteMovie(id) {
+    console.log(id)
     MainApi.deleteMovie(id)
       .then(() => {
         setSavedMovies((state) => state.filter((item) => item._id !== id && item));
+        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
       })
       .catch((err) => {
         console.log(`Ошибка удаления фильма: ${err}`);
@@ -98,6 +106,8 @@ function App() {
   function onRegister(name, email, password) {
     return auth.register(name, email, password)
       .then((res) => {
+        // localStorage.setItem('loggedIn', JSON.stringify(true));
+        setLoggedIn(true);
         return res;
       })
   };
@@ -107,6 +117,7 @@ function App() {
       .then((res) => {
         if (res.token) {
           localStorage.setItem('jwt', res.token);
+          // localStorage.setItem('loggedIn', JSON.stringify(true));
           setLoggedIn(true);
         }
       })
@@ -125,6 +136,8 @@ function App() {
 
     if (largeSize) {
       setNext(next + 4);
+    } else if (bigSize) {
+      setNext(next + 3);
     } else if (mediumSize) {
       setNext(next + 2);
     } else if (smallSize) {
@@ -132,53 +145,66 @@ function App() {
     }
   };
 
-  // ChatGPT filter function
   function filterMovies() {
-    const movies = JSON.parse(localStorage.getItem('movies'));
-    const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
     const checkbox = JSON.parse(localStorage.getItem('checkbox'));
 
     if (largeSize) {
       setNext(16);
+    } else if (bigSize) {
+      setNext(12);
     } else if (mediumSize) {
       setNext(8);
     } else if (smallSize) {
       setNext(5);
     }
 
-    if (location.pathname === '/movies') {
-      const filteredMovies = movies.filter(movie => {
+    if (!localStorage.movies) {
+      setIsLoading(true);
+      MoviesApi.getInitialMovies()
+        .then((moviesData) => {
+          localStorage.setItem('movies', JSON.stringify(moviesData));
+        })
+        .then(() => {
+          const filteredMovies = JSON.parse(localStorage.getItem('movies')).filter(movie => {
+            if (checkbox) {
+              return movie.duration <= 40 && movie.nameRU.toLowerCase().includes(search.toLowerCase());
+            } else {
+              return movie.nameRU.toLowerCase().includes(search.toLowerCase());
+            }
+          });
+      
+          setMovies(filteredMovies);
+          localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+          localStorage.setItem('search', search);
+
+          if (filteredMovies.length === 0) {
+            setTooltip(true);
+            setTooltipMessage('Ничего не найдено!');
+            setTimeout(() => {
+              setTooltip(false);
+            }, '5000');
+          }
+        })
+        .catch((err) => {
+          console.log(`Ошибка получения данных: ${err}`);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        })
+    } else {
+      const filteredMovies = JSON.parse(localStorage.getItem('movies')).filter(movie => {
         if (checkbox) {
           return movie.duration <= 40 && movie.nameRU.toLowerCase().includes(search.toLowerCase());
         } else {
           return movie.nameRU.toLowerCase().includes(search.toLowerCase());
         }
       });
-
+      
       setMovies(filteredMovies);
       localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+      localStorage.setItem('search', search);
 
-      if (JSON.parse(localStorage.getItem('filteredMovies')).length === 0) {
-        setTooltip(true);
-        setTooltipMessage('Ничего не найдено!');
-        setTimeout(() => {
-          setTooltip(false);
-        }, '5000');
-      }
-
-    } else if (location.pathname === '/saved-movies') {
-      const filteredSavedMovies = savedMovies.filter(movie => {
-        if (checkbox) {
-          return movie.duration <= 40 && movie.nameRU.toLowerCase().includes(search.toLowerCase());
-        } else {
-          return movie.nameRU.toLowerCase().includes(search.toLowerCase());
-        }
-      });
-
-      setSavedMovies(filteredSavedMovies);
-      localStorage.setItem('filteredSavedMovies', JSON.stringify(filteredSavedMovies));
-
-      if (JSON.parse(localStorage.getItem('filteredSavedMovies')).length === 0) {
+      if (filteredMovies.length === 0) {
         setTooltip(true);
         setTooltipMessage('Ничего не найдено!');
         setTimeout(() => {
@@ -186,42 +212,83 @@ function App() {
         }, '5000');
       }
     }
-
-    localStorage.setItem('search', search);
   };
-  // end
+
+  function filterSavedMovies() {
+    const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+    const savedCheckbox = JSON.parse(localStorage.getItem('savedCheckbox'));
+
+    const filteredSavedMovies = savedMovies.filter(movie => {
+      if (savedCheckbox) {
+        return movie.duration <= 40 && movie.nameRU.toLowerCase().includes(search.toLowerCase());
+      } else {
+        return movie.nameRU.toLowerCase().includes(search.toLowerCase());
+      }
+    });
+
+    setSavedMovies(filteredSavedMovies);
+
+    if (filteredSavedMovies.length === 0) {
+      setTooltip(true);
+      setTooltipMessage('Ничего не найдено!');
+      setTimeout(() => {
+        setTooltip(false);
+      }, '5000');
+    }
+  };
 
   function handleSearchSubmit(evt) {
     evt.preventDefault();
 
-    if (search.length === 0) {
-      setTooltip(true);
-      setTooltipMessage('Нужно ввести ключевое слово!');
-      setTimeout(() => {
-        setTooltip(false);
-      }, '5000');
-    } else {
-      setIsLoading(true);
-      setTimeout(() => {
-        filterMovies();
-        setIsLoading(false);
-      }, '500');
-    }
+    if (location.pathname === '/movies') {
+      if (search.length === 0) {
+        setTooltip(true);
+        setTooltipMessage('Нужно ввести ключевое слово!');
+        setTimeout(() => {
+          setTooltip(false);
+        }, '5000');
+      } else {
+        setIsLoading(true);
+        setTimeout(() => {
+          filterMovies();
+          setIsLoading(false);
+        }, '500');
+      }
+    } else if (location.pathname === '/saved-movies')
+      if (search.length === 0) {
+        setTooltip(true);
+        setTooltipMessage('Нужно ввести ключевое слово!');
+        setTimeout(() => {
+          setTooltip(false);
+        }, '5000');
+      } else {
+        setIsLoading(true);
+        setTimeout(() => {
+          filterSavedMovies();
+          setIsLoading(false);
+        }, '500');
+      }
   };
 
   function handleCheckboxChange() {
-    if (!isChecked) {
-      setIsChecked(true);
-      localStorage.setItem('checkbox', JSON.stringify(true));
-    } else {
-      setIsChecked(false);
-      localStorage.setItem('checkbox', JSON.stringify(false));
-    }
-
-    if (movies.length !== 0) {
+    if (location.pathname === '/movies' && movies.length !== 0) {
+      if (!isChecked) {
+        setIsChecked(true);
+        localStorage.setItem('checkbox', JSON.stringify(true));
+      } else {
+        setIsChecked(false);
+        localStorage.setItem('checkbox', JSON.stringify(false));
+      }
       filterMovies();
     } else if (location.pathname === '/saved-movies') {
-      filterMovies();
+      if (!isChecked) {
+        setIsChecked(true);
+        localStorage.setItem('savedCheckbox', JSON.stringify(true));
+      } else {
+        setIsChecked(false);
+        localStorage.setItem('savedCheckbox', JSON.stringify(false));
+      }
+      filterSavedMovies();
     }
   };
 
@@ -242,36 +309,14 @@ function App() {
   };
 
   useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      checkToken(jwt);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (loggedIn) {
-      if (localStorage.filteredMovies) {
-        setMovies(JSON.parse(localStorage.getItem('filteredMovies')));
-        setSavedMovies(JSON.parse(localStorage.getItem('filteredSavedMovies')));
-        setIsChecked(JSON.parse(localStorage.getItem('checkbox')));
-        setSearch(localStorage.getItem('search'));
-      }
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loggedIn]);
-
-  useEffect(() => {
     if (loggedIn) {
       setIsLoading(true);
-      Promise.all([MainApi.getUserInfo(), MoviesApi.getInitialMovies(), MainApi.getSavedMovies()])
-        .then(([userData, moviesData, savedMoviesData]) => {
+      Promise.all([MainApi.getUserInfo(), MainApi.getSavedMovies()])
+        .then(([userData, savedMoviesData]) => {
           setCurrentUser(userData);
 
-          localStorage.setItem('movies', JSON.stringify(moviesData));
-
-          setSavedMovies(savedMoviesData);
           localStorage.setItem('savedMovies', JSON.stringify(savedMoviesData));
+          setSavedMovies(savedMoviesData);
         })
         .catch((err) => {
           console.log(`Ошибка получения данных: ${err}`);
@@ -282,6 +327,31 @@ function App() {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
+
+  useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      checkToken(jwt);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (loggedIn) {
+      if (localStorage.filteredMovies && location.pathname === '/movies') {
+        setMovies(JSON.parse(localStorage.getItem('filteredMovies')));
+        setIsChecked(JSON.parse(localStorage.getItem('checkbox')));
+        setSearch(localStorage.getItem('search'));
+      } else if (localStorage.savedMovies && location.pathname === '/saved-movies') {
+        setSavedMovies(JSON.parse(localStorage.getItem('savedMovies')));
+        setIsChecked(false);
+        setSearch('');
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loggedIn, location.pathname]);
+
+  
 
   return (
     <div className="app">
@@ -366,6 +436,7 @@ function App() {
           </Route>
 
           <Route path="/signup">
+            {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signup" />}
             <Register
               onRegister={onRegister}
               onLogin={onLogin}
@@ -373,6 +444,7 @@ function App() {
           </Route>
 
           <Route path="/signin">
+            {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signin" />}
             <Login
               onLogin={onLogin}
             />
@@ -380,10 +452,6 @@ function App() {
 
           <Route path="*">
             <PageNotFound />
-          </Route>
-
-          <Route exact path="/">
-            {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" />}
           </Route>
 
         </Switch>

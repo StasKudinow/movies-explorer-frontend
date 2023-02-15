@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import Logo from "../Logo/Logo";
 import Auth from "../Auth/Auth";
@@ -8,10 +8,13 @@ function Register({ onRegister, onLogin }) {
 
   const [isError, setIsError] = useState(false);
 
+  const history = useHistory();
+
   function handleSubmit(values) {
     onRegister(values.name, values.email, values.password)
       .then(() => {
         onLogin(values.email, values.password);
+        history.push('/movies');
         console.log('Success!');
       })
       .catch((err) => {

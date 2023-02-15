@@ -26,7 +26,7 @@ function MoviesCard(props) {
     } else if (isLiked === true) {
       props.savedMovies.forEach((item) => {
         if (props.id === item.movieId) {
-          props.onDeleteMovie(item._id)
+          props.onDeleteMovie(item._id);
         }
       });
       setIsLiked(false);
@@ -38,15 +38,16 @@ function MoviesCard(props) {
   };
 
   useEffect(() => {
+    const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
     props.movies.forEach(() => {
       // eslint-disable-next-line array-callback-return
-      return props.savedMovies.find((i) => {
-        if (i.movieId === props.id) {
+      return savedMovies.find((i) => {
+        if (props.id === i.movieId) {
           setIsLiked(true);
         }
       });
     });
-  }, [props.id, props.movies, props.savedMovies]);
+  }, [props.id, props.movies]);
 
   const cardLikeClassName = (
     `cards__button ${isLiked ? 'cards__button_like' : ''}`

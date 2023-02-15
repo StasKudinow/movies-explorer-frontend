@@ -28,8 +28,9 @@ function Auth(props) {
           onSubmit={values => {
             props.onSubmit(values);
           }}
+          validateOnMount
         >
-          {({ errors, touched, handleChange, values }) => (
+          {({ errors, touched, handleChange, values, isValid }) => (
             <Form className="auth__form" noValidate>
               <p className="auth__input-text">Имя</p>
               <Field
@@ -71,8 +72,7 @@ function Auth(props) {
                 <span className="auth__input-error">{errors.password}</span>
               )}
               <button className={buttonClassName} type="submit" disabled={
-                errors.password && touched.password ?
-                setDisabled(true) : setDisabled(false)
+                !isValid ? setDisabled(true) : setDisabled(false)
               }>
                 <span className={tooltipClassName}>Что-то пошло не так...</span>
                 {props.button}
@@ -90,8 +90,9 @@ function Auth(props) {
           onSubmit={values => {
             props.onSubmit(values);
           }}
+          validateOnMount
         >
-          {({ errors, touched, handleChange, values }) => (
+          {({ errors, touched, handleChange, values, isValid }) => (
             <Form className="auth__form" noValidate>
               <p className="auth__input-text">E-mail</p>
               <Field
@@ -120,8 +121,7 @@ function Auth(props) {
                 <span className="auth__input-error">{errors.password}</span>
               )}
               <button className={buttonClassName} type="submit" disabled={
-                errors.password && touched.password ?
-                setDisabled(true) : setDisabled(false)
+                !isValid ? setDisabled(true) : setDisabled(false)
               }>
                 <span className={tooltipClassName}>Что-то пошло не так...</span>
                 {props.button}

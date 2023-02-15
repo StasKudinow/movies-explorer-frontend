@@ -123,6 +123,14 @@
   .cards__title {
     max-width: 295px;
   }
+
+  .cards__info:hover {
+    cursor: auto;
+  }
+
+  .cards__button {
+    background-image: url(../../images/card_delete_active.svg);
+  }
 }
 
 @media screen and (max-width: 712px) {
