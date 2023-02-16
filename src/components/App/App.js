@@ -55,6 +55,8 @@ function App() {
 
   const location = useLocation();
 
+  console.log(movies)
+
   function handlePopupWithMenuClick() {
     setIsPopupWithMenuOpen(true);
   };
@@ -266,7 +268,7 @@ function App() {
   };
 
   function handleCheckboxChange() {
-    if (location.pathname === '/movies' && movies.length !== 0) {
+    if (location.pathname === '/movies' && localStorage.filteredMovies) {
       if (!isChecked) {
         setIsChecked(true);
         localStorage.setItem('checkbox', JSON.stringify(true));
