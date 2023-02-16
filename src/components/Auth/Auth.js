@@ -40,6 +40,7 @@ function Auth(props) {
                 value={values.name}
                 onChange={handleChange}
                 validate={validateName}
+                disabled={props.inputDisabled}
                 required
               />
               {errors.name && touched.name && (
@@ -66,6 +67,7 @@ function Auth(props) {
                 value={values.password}
                 onChange={handleChange}
                 validate={validatePassword}
+                disabled={props.inputDisabled}
                 required
               />
               {errors.password && touched.password && (
@@ -102,6 +104,7 @@ function Auth(props) {
                 value={values.email}
                 onChange={handleChange}
                 validate={validateEmail}
+                disabled={props.inputDisabled}
                 required
               />
               {errors.email && touched.email && (
@@ -115,6 +118,7 @@ function Auth(props) {
                 value={values.password}
                 onChange={handleChange}
                 validate={validatePassword}
+                disabled={props.inputDisabled}
                 required
               />
               {errors.password && touched.password && (

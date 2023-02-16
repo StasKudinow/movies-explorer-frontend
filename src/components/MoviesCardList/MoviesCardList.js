@@ -27,6 +27,7 @@ function MoviesCardList(props) {
               nameEN={movie.nameEN}
               onDeleteMovie={props.onDeleteMovie}
               onSaveMovie={props.onSaveMovie}
+              onLogout={props.onLogout}
               savedMovies={props.savedMovies}
               movies={props.movies}
               isClicked={props.isClicked}

@@ -2,6 +2,7 @@ import { NavLink, Route, Switch } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 
 function NavigationLoggedIn() {
+
   const isMobile = useMediaQuery({ query: '(max-width: 879px)' });
 
   return (
@@ -10,10 +11,10 @@ function NavigationLoggedIn() {
         <nav>
           <ul className={`nav-menu ${isMobile ? 'nav-menu_mobile' : ''}`}>
             <li>
-              <NavLink to="/movies" className="nav-menu__movies">Фильмы</NavLink>
+              <NavLink to="/movies" className="nav-menu__movies" activeClassName="nav-menu__movies_active">Фильмы</NavLink>
             </li>
             <li>
-              <NavLink to="/saved-movies" className="nav-menu__saved-movies">Сохранённые фильмы</NavLink>
+              <NavLink to="/saved-movies" className="nav-menu__movies">Сохранённые фильмы</NavLink>
             </li>
             <li>
               <NavLink to="/profile">
@@ -35,7 +36,7 @@ function NavigationLoggedIn() {
               <NavLink to="/movies" className="nav-menu__movies">Фильмы</NavLink>
             </li>
             <li>
-              <NavLink to="/saved-movies" className="nav-menu__saved-movies">Сохранённые фильмы</NavLink>
+              <NavLink to="/saved-movies" className="nav-menu__movies" activeClassName="nav-menu__movies_active">Сохранённые фильмы</NavLink>
             </li>
             <li>
               <NavLink to="/profile">
@@ -57,7 +58,7 @@ function NavigationLoggedIn() {
               <NavLink to="/movies" className="nav-menu__movies">Фильмы</NavLink>
             </li>
             <li>
-              <NavLink to="/saved-movies" className="nav-menu__saved-movies">Сохранённые фильмы</NavLink>
+              <NavLink to="/saved-movies" className="nav-menu__movies">Сохранённые фильмы</NavLink>
             </li>
             <li>
               <NavLink to="/profile">
@@ -79,7 +80,7 @@ function NavigationLoggedIn() {
               <NavLink to="/movies" className="nav-menu__movies">Фильмы</NavLink>
             </li>
             <li>
-              <NavLink to="/saved-movies" className="nav-menu__saved-movies">Сохранённые фильмы</NavLink>
+              <NavLink to="/saved-movies" className="nav-menu__movies">Сохранённые фильмы</NavLink>
             </li>
             <li>
               <NavLink to="/profile">

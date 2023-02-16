@@ -35,6 +35,7 @@ function Movies(props) {
       <MoviesCardList
         onSaveMovie={props.onSaveMovie}
         onDeleteMovie={props.onDeleteMovie}
+        onLogout={props.onLogout}
         movies={props.movies}
         savedMovies={props.savedMovies}
         isClicked={props.isClicked}

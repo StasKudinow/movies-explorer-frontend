@@ -1,7 +1,7 @@
 export const BASE_URL = 'https://api.movies-explorer.sk.nomoredomains.club';
 
 const checkResponse = (response) => {
-  if(response.ok) {
+  if (response.ok) {
     return response.json();
   } else {
     return Promise.reject(response.status);

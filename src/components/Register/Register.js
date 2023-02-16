@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Logo from "../Logo/Logo";
 import Auth from "../Auth/Auth";
@@ -7,14 +7,13 @@ import Auth from "../Auth/Auth";
 function Register({ onRegister, onLogin }) {
 
   const [isError, setIsError] = useState(false);
-
-  const history = useHistory();
+  const [inputDisabled, setInputDisabled] = useState(false);
 
   function handleSubmit(values) {
+    setInputDisabled(true);
     onRegister(values.name, values.email, values.password)
       .then(() => {
         onLogin(values.email, values.password);
-        history.push('/movies');
         console.log('Success!');
       })
       .catch((err) => {
@@ -26,6 +25,9 @@ function Register({ onRegister, onLogin }) {
           console.log(`Ошибка: ${err}`);
         }
       })
+      .finally(() => {
+        setInputDisabled(false);
+      })
   };
 
   return (
@@ -35,6 +37,7 @@ function Register({ onRegister, onLogin }) {
       <Auth
         onSubmit={handleSubmit}
         isError={isError}
+        inputDisabled={inputDisabled}
         button="Зарегистрироваться"
       />
       <div className="auth__redirect">

@@ -49,28 +49,17 @@
 .nav-menu__movies {
   margin-right: 20px;
   font-size: 14px;
-  font-weight: 500;
-  line-height: 18px;
-  color: #000000;
-  text-decoration: none;
-}
-
-.nav-menu__movies:hover {
-  opacity: 0.6;
-  transition: opacity 0.4s ease;
-  cursor: pointer;
-}
-
-.nav-menu__saved-movies {
-  margin-right: 50px;
-  font-size: 14px;
   font-weight: 400;
   line-height: 18px;
   color: #000000;
   text-decoration: none;
 }
 
-.nav-menu__saved-movies:hover {
+.nav-menu__movies_active {
+  font-weight: 500;
+}
+
+.nav-menu__movies:hover {
   opacity: 0.6;
   transition: opacity 0.4s ease;
   cursor: pointer;

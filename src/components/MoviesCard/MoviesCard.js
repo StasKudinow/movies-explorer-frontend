@@ -3,6 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 
 function MoviesCard(props) {
   const [isLiked, setIsLiked] = useState(false);
+  const [isError, setIsError] = useState(false);
+
   const duration = props.duration;
   const hours = Math.floor(duration / 60);
   const minutes = duration % 60;
@@ -22,11 +24,22 @@ function MoviesCard(props) {
         movieId: props.id,
         nameRU: props.nameRU,
         nameEN: props.nameEN,
-      });
+      })
+      .catch((err) => {
+        if (err === 401) {
+          props.onLogout();
+        }
+        setIsLiked(false);
+        setIsError(true);
+        setTimeout(() => {
+          setIsError(false);
+        }, '5000');
+        console.log(`Ошибка сохранения фильма: ${err}`);
+      })
     } else if (isLiked === true) {
       props.savedMovies.forEach((item) => {
         if (props.id === item.movieId) {
-          props.onDeleteMovie(item._id);
+          props.onDeleteMovie(item);
         }
       });
       setIsLiked(false);
@@ -34,7 +47,7 @@ function MoviesCard(props) {
   };
 
   function handleDelete() {
-    props.onDeleteMovie(props.currentMovie._id);
+    props.onDeleteMovie(props.currentMovie);
   };
 
   useEffect(() => {
@@ -57,6 +70,10 @@ function MoviesCard(props) {
     `${isLiked ? 'Сохранено' : 'Сохранить'}`
   );
 
+  const errorTooltip = (
+    `cards__tooltip-error ${isError ? 'cards__tooltip-error_active' : ''}`
+  );
+
   const cardClassName = (
     `cards__card ${props.isClicked ? 'cards__card_visible' : ''}`
   );
@@ -68,7 +85,8 @@ function MoviesCard(props) {
           <a className="cards__trailer-link" href={props.trailerLink} target="_blank" rel="noreferrer">
             <img className="cards__image" src={props.image} alt={props.nameRU} />
           </a>
-          <div tooltip={tooltip} className="cards__info" onClick={handleLike}>
+          <span className={errorTooltip}>Не удалось сохранить</span>
+          <div tooltip={tooltip} error-tooltip={tooltip} className="cards__info" onClick={handleLike}>
             <p className="cards__title">{props.nameRU}</p>
             <button className={cardLikeClassName} type="button" />
           </div>

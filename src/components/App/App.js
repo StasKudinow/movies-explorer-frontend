@@ -43,7 +43,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
-  const [loggedIn, setLoggedIn] = useState();
+  const [loggedIn, setLoggedIn] = useState(JSON.parse(localStorage.getItem('loggedIn')));
   const [isChecked, setIsChecked] = useState(false);
   const [search, setSearch] = useState('');
   const [isPopupWithMenuOpen, setIsPopupWithMenuOpen] = useState(false);
@@ -54,9 +54,6 @@ function App() {
   const [tooltipMessage, setTooltipMessage] = useState('');
 
   const location = useLocation();
-
-  console.log(currentUser)
-  console.log(loggedIn)
 
   function handlePopupWithMenuClick() {
     setIsPopupWithMenuOpen(true);
@@ -86,16 +83,16 @@ function App() {
         setSavedMovies([movie, ...savedMovies]);
         localStorage.setItem('savedMovies', JSON.stringify([movie, ...savedMovies]));
       })
-      .catch((err) => {
-        console.log(`Ошибка сохранения фильма: ${err}`);
-      })
   };
 
-  function handleDeleteMovie(id) {
-    console.log(id)
-    MainApi.deleteMovie(id)
+  function handleDeleteMovie(movie) {
+    MainApi.deleteMovie(movie._id)
       .then(() => {
-        setSavedMovies((state) => state.filter((item) => item._id !== id && item));
+        setSavedMovies((state) => state.filter((item) => item._id !== movie._id && item));
+        const index = savedMovies.findIndex((item) => item._id === movie._id);
+        if (index > -1) {
+          savedMovies.splice(index, 1);
+        }
         localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
       })
       .catch((err) => {
@@ -106,8 +103,6 @@ function App() {
   function onRegister(name, email, password) {
     return auth.register(name, email, password)
       .then((res) => {
-        // localStorage.setItem('loggedIn', JSON.stringify(true));
-        setLoggedIn(true);
         return res;
       })
   };
@@ -117,15 +112,15 @@ function App() {
       .then((res) => {
         if (res.token) {
           localStorage.setItem('jwt', res.token);
-          // localStorage.setItem('loggedIn', JSON.stringify(true));
           setLoggedIn(true);
+          localStorage.setItem('loggedIn', JSON.stringify(true));
         }
       })
   };
 
   function onLogout() {
     localStorage.clear();
-    setLoggedIn(false);
+    setLoggedIn(false)
     setMovies([]);
     setIsChecked(false);
     setSearch('');
@@ -301,6 +296,7 @@ function App() {
       .then((res) => {
         if (res) {
           setLoggedIn(true);
+          localStorage.setItem('loggedIn', JSON.stringify(true));
         }
       })
       .catch((err) => {
@@ -309,14 +305,21 @@ function App() {
   };
 
   useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      checkToken(jwt);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     if (loggedIn) {
       setIsLoading(true);
       Promise.all([MainApi.getUserInfo(), MainApi.getSavedMovies()])
         .then(([userData, savedMoviesData]) => {
           setCurrentUser(userData);
-
-          localStorage.setItem('savedMovies', JSON.stringify(savedMoviesData));
           setSavedMovies(savedMoviesData);
+          localStorage.setItem('savedMovies', JSON.stringify(savedMoviesData));
         })
         .catch((err) => {
           console.log(`Ошибка получения данных: ${err}`);
@@ -327,14 +330,6 @@ function App() {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
-
-  useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      checkToken(jwt);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     if (loggedIn) {
@@ -384,6 +379,7 @@ function App() {
               onSearchSubmit={handleSearchSubmit}
               onCheckboxChange={handleCheckboxChange}
               onShowMoreClick={handleShowMoreClick}
+              onLogout={onLogout}
               isChecked={isChecked}
               search={search}
               movies={movies}
