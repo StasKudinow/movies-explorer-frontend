@@ -151,11 +151,7 @@
     max-width: 295px;
   }
 
-  .cards__info:hover {
-    cursor: auto;
-  }
-
-  .cards__button {
+  .cards__button_delete {
     background-image: url(../../images/card_delete_active.svg);
   }
 }

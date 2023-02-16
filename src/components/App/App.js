@@ -54,9 +54,7 @@ function App() {
   const [tooltipMessage, setTooltipMessage] = useState('');
 
   const location = useLocation();
-
-  console.log(movies)
-
+  
   function handlePopupWithMenuClick() {
     setIsPopupWithMenuOpen(true);
   };
