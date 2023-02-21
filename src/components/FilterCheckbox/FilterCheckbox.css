@@ -1,15 +1,15 @@
-.search__checkbox {
+.checkbox {
   margin-top: 30px;
   display: flex;
   gap: 12px;
   position: relative;
 }
 
-.search__checkbox:hover {
+.checkbox:hover {
   cursor: pointer;
 }
 
-.search__checkbox-input-hidden {
+.checkbox__input-hidden {
   position: absolute;
   width: 0.1px;
   height: 0.1px;
@@ -17,19 +17,19 @@
   clip-path: inset(0 0 0 0);
 }
 
-.search__checkbox-input-hidden + .search__checkbox-input-disabled {
+.checkbox__input-hidden + .checkbox__input-disabled {
   width: 36px;
   height: 20px;
   background-image: url(../../images/checkbox_off.svg);
 }
 
-.search__checkbox-input-hidden:checked + .search__checkbox-input-checked {
+.checkbox__input-hidden:checked + .checkbox__input-checked {
   width: 36px;
   height: 20px;
   background-image: url(../../images/checkbox_on.svg);
 }
 
-.search__checkbox-text {
+.checkbox__text {
   margin: 0;
   font-size: 14px;
   font-weight: 400;
@@ -37,13 +37,42 @@
   color: #000000;
 }
 
+.checkbox__tooltip {
+  width: 156px;
+  margin: 0;
+  padding: 3px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 1;
+  top: 20px;
+  right: 6px;
+  background-color: #DDDEE3;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  text-align: center;
+  pointer-events: none;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  transition: 0.8s 0.2s linear;
+  opacity: 0;
+}
+
+.checkbox__tooltip_active {
+  opacity: 1;
+  top: 40px;
+}
+
 @media screen and (max-width: 712px) {
-  .search__checkbox {
+  .checkbox {
     margin-top: 40px;
     gap: 13px;
   }
 
-  .search__checkbox-text {
+  .checkbox__text {
     font-size: 11px;
+  }
+
+  .checkbox__tooltip {
+    right: -6px;
   }
 }

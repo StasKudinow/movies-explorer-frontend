@@ -1,5 +1,4 @@
 .cards {
-  max-height: 1114px;
   padding: 70px 0 10px;
   display: grid;
   grid-template-columns: repeat(4, 270px);
@@ -15,7 +14,6 @@
 
 @media screen and (max-width: 1150px) {
   .cards {
-    max-height: 750px;
     grid-template-columns: repeat(3, 270px);
     gap: 30px;
   }
@@ -23,7 +21,6 @@
 
 @media screen and (max-width: 879px) {
   .cards {
-    max-height: 1166px;
     padding-top: 69px;
     grid-template-columns: repeat(2, 339px);
     gap: 30px;
@@ -36,7 +33,6 @@
 
 @media screen and (max-width: 712px) {
   .cards {
-    max-height: 1366px;
     padding-top: 41px;
     grid-template-columns: repeat(1, 300px);
     gap: 34px;

@@ -1,4 +1,4 @@
-.header__nav-menu {
+.nav-menu {
   margin: 0;
   padding: 0;
   padding-bottom: 3px;
@@ -8,11 +8,11 @@
   list-style-type: none;
 }
 
-.header__nav-menu_mobile {
+.nav-menu_mobile {
   flex-direction: column;
 }
 
-.header__nav-register {
+.nav-menu__register {
   margin-right: 30px;
   font-size: 12px;
   font-weight: 500;
@@ -21,13 +21,13 @@
   text-decoration: none;
 }
 
-.header__nav-register:hover {
+.nav-menu__register:hover {
   opacity: 0.6;
   transition: opacity 0.4s ease;
   cursor: pointer;
 }
 
-.header__nav-login {
+.nav-menu__login {
   width: 76px;
   height: 32px;
   padding: 0;
@@ -40,29 +40,14 @@
   color: #FFFFFF;
 }
 
-.header__nav-login:hover {
+.nav-menu__login:hover {
   opacity: 0.6;
   transition: opacity 0.4s ease;
   cursor: pointer;
 }
 
-.header__nav-movies {
+.nav-menu__movies {
   margin-right: 20px;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 18px;
-  color: #000000;
-  text-decoration: none;
-}
-
-.header__nav-movies:hover {
-  opacity: 0.6;
-  transition: opacity 0.4s ease;
-  cursor: pointer;
-}
-
-.header__nav-saved-movies {
-  margin-right: 50px;
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
@@ -70,13 +55,17 @@
   text-decoration: none;
 }
 
-.header__nav-saved-movies:hover {
+.nav-menu__movies_active {
+  font-weight: 500;
+}
+
+.nav-menu__movies:hover {
   opacity: 0.6;
   transition: opacity 0.4s ease;
   cursor: pointer;
 }
 
-.header__nav-profile {
+.nav-menu__profile {
   width: 100px;
   height: 32px;
   padding: 0;
@@ -86,13 +75,17 @@
   box-shadow: 0px 3px 14px rgba(0, 0, 0, 0.08);
 }
 
-.header__nav-profile-container {
+.nav-menu__profile_main-page {
+  background-color: #DDDEE3;
+}
+
+.nav-menu__profile-container {
   padding: 7px 12px;
   display: flex;
   justify-content: space-between;
 }
 
-.header__nav-profile-text {
+.nav-menu__profile-text {
   margin: 0;
   font-size: 13px;
   font-weight: 500;
@@ -100,24 +93,24 @@
   color: #000000;
 }
 
-.header__nav-profile-image {
+.nav-menu__profile-image {
   width: 11px;
   height: 11px;
   background-image: url(../../images/profile_button_icon.svg);
 }
 
-.header__nav-profile:hover {
+.nav-menu__profile:hover {
   opacity: 0.6;
   transition: opacity 0.4s ease;
   cursor: pointer;
 }
 
 @media screen and (max-width: 879px) {
-  .header__nav-menu_mobile {
+  .nav-menu_mobile {
     gap: 28px;
   }
 
-  .header__nav-movies {
+  .nav-menu__movies {
     margin: 0;
     padding-bottom: 4px;
     font-size: 18px;
@@ -126,12 +119,12 @@
     border-bottom: 2px solid #FAFAFA;
   }
 
-  .header__nav-movies:hover {
+  .nav-menu__movies:hover {
     border-bottom: 2px solid #000000;
     opacity: 1;
   }
 
-  .header__nav-saved-movies {
+  .nav-menu__saved-movies {
     margin: 0;
     padding-bottom: 4px;
     font-size: 18px;
@@ -140,42 +133,42 @@
     border-bottom: 2px solid #FAFAFA;
   }
 
-  .header__nav-saved-movies:hover {
+  .nav-menu__saved-movies:hover {
     border-bottom: 2px solid #000000;
     opacity: 1;
   }
 
-  .header__nav-profile {
+  .nav-menu__profile {
     height: 36px;
     margin-top: 444px;
   }
 }
 
 @media screen and (max-width: 650px) {
-  .header__nav-menu_mobile {
+  .nav-menu_mobile {
     gap: 24px;
   }
 
-  .header__nav-register {
+  .nav-menu__register {
     font-size: 10px;
     margin-right: 14px;
   }
 
-  .header__nav-login {
+  .nav-menu__login {
     width: 54px;
     height: 26px;
     font-size: 10px;
   }
 
-  .header__nav-movies {
+  .nav-menu__movies {
     padding-bottom: 5px;
   }
 
-  .header__nav-saved-movies {
+  .nav-menu__saved-movies {
     padding-bottom: 5px;
   }
 
-  .header__nav-profile {
+  .nav-menu__profile {
     margin-top: 416px;
   }
 }

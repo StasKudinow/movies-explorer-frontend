@@ -1,31 +1,60 @@
 import { Route, Switch } from 'react-router-dom';
 
 import MoviesCard from "../MoviesCard/MoviesCard";
-import { movies, savedMovies } from "../../utils/constants";
 
-function MoviesCardList() {
+function MoviesCardList(props) {
+
+  const BASE_MOVIES_URL = 'https://api.nomoreparties.co/';
+
   return (
     <Switch>
       <Route path="/movies">
         <section className="cards">
-          {movies.map((card) => {
+          {props.movies.slice(0, props.next).map((movie) => {
             return <MoviesCard
-              key={card.id}
-              image={card.image}
-              title={card.title}
-              duration={card.duration}
+              key={movie.id}
+              currentMovie={movie}
+              nameRU={movie.nameRU}
+              image={BASE_MOVIES_URL + movie.image.url}
+              duration={movie.duration}
+              country={movie.country}
+              director={movie.director}
+              year={movie.year}
+              description={movie.description}
+              trailerLink={movie.trailerLink}
+              thumbnail={BASE_MOVIES_URL + movie.image.formats.thumbnail.url}
+              id={movie.id}
+              nameEN={movie.nameEN}
+              onDeleteMovie={props.onDeleteMovie}
+              onSaveMovie={props.onSaveMovie}
+              onLogout={props.onLogout}
+              savedMovies={props.savedMovies}
+              movies={props.movies}
+              isClicked={props.isClicked}
             />
           })}
         </section>
       </Route>
       <Route path="/saved-movies">
         <section className="cards cards_saved">
-          {savedMovies.map((card) => {
+          {props.savedMovies.map((movie) => {
             return <MoviesCard
-              key={card.id}
-              image={card.image}
-              title={card.title}
-              duration={card.duration}
+              key={movie.movieId}
+              currentMovie={movie}
+              nameRU={movie.nameRU}
+              image={movie.image}
+              duration={movie.duration}
+              country={movie.country}
+              director={movie.director}
+              year={movie.year}
+              description={movie.description}
+              trailerLink={movie.trailerLink}
+              thumbnail={movie.thumbnail}
+              movieId={movie.movieId}
+              nameEN={movie.nameEN}
+              onDeleteMovie={props.onDeleteMovie}
+              savedMovies={props.savedMovies}
+              movies={props.movies}
             />
           })}
         </section>

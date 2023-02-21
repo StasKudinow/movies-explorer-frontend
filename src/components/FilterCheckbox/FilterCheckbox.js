@@ -1,28 +1,24 @@
-import { useState } from "react";
-
-function FilterCheckbox() {
-  const [isChecked, setIsChecked] = useState(false);
-
-  function handleCheckbox(evt) {
-    setIsChecked(!isChecked);
-
-    if (evt.target.checked) {
-      setIsChecked(true);
-    } else {
-      setIsChecked(false);
-    }
-  };
+function FilterCheckbox(props) {
 
   const checkboxClassName = (
-    `${isChecked ? 'search__checkbox-input-checked' : 'search__checkbox-input-disabled'}`
-  )
+    `${props.isChecked ? 'checkbox__input-checked' : 'checkbox__input-disabled'}`
+  );
+
+  const tooltipClassName = (
+    `checkbox__tooltip ${props.tooltip ? 'checkbox__tooltip_active' : ''}`
+  );
 
   return (
     <form>
-      <label className="search__checkbox" onClick={handleCheckbox}>
-        <input className="search__checkbox-input-hidden" type="checkbox" />
+      <label className="checkbox">
+        <input className="checkbox__input-hidden"
+          type="checkbox"
+          onChange={props.onCheckboxChange}
+          checked={props.isChecked}
+        />
         <div className={checkboxClassName} />
-        <p className="search__checkbox-text">Короткометражки</p>
+        <p className="checkbox__text">Короткометражки</p>
+        <span className={tooltipClassName}>{props.tooltipMessage}</span>
       </label>
     </form>
   );

@@ -1,14 +1,45 @@
+import { useState } from 'react';
 import { Link } from "react-router-dom";
 
 import Logo from "../Logo/Logo";
 import Auth from "../Auth/Auth";
 
-function Register() {
+function Register({ onRegister, onLogin }) {
+
+  const [isError, setIsError] = useState(false);
+  const [inputDisabled, setInputDisabled] = useState(false);
+
+  function handleSubmit(values) {
+    setInputDisabled(true);
+    onRegister(values.name, values.email, values.password)
+      .then(() => {
+        onLogin(values.email, values.password);
+        console.log('Success!');
+      })
+      .catch((err) => {
+        if (err) {
+          setIsError(true);
+          setTimeout(() => {
+            setIsError(false);
+          }, '5000');
+          console.log(`Ошибка: ${err}`);
+        }
+      })
+      .finally(() => {
+        setInputDisabled(false);
+      })
+  };
+
   return (
     <main className="auth">
       <Logo />
       <h1 className="auth__title">Добро пожаловать!</h1>
-      <Auth />
+      <Auth
+        onSubmit={handleSubmit}
+        isError={isError}
+        inputDisabled={inputDisabled}
+        button="Зарегистрироваться"
+      />
       <div className="auth__redirect">
         <p className="auth__redirect-text">Уже зарегистрированы?</p>
         <Link to="/signin" className="auth__redirect-link"> Войти</Link>

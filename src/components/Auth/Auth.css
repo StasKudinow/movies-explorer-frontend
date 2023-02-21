@@ -45,7 +45,6 @@
   cursor: pointer;
 }
 
-
 .auth__form {
   display: flex;
   flex-direction: column;
@@ -101,6 +100,7 @@
   font-weight: 500;
   line-height: 17px;
   color: #FFFFFF;
+  position: relative;
 }
 
 .auth__button:hover {
@@ -109,8 +109,43 @@
   cursor: pointer;
 }
 
+.auth__button_disabled {
+  background-color: #93a4ee;
+}
+
+.auth__button_disabled:hover {
+  opacity: 1;
+  cursor: auto;
+}
+
 .auth__button_login {
   margin-top: 196px;
+}
+
+.auth__tooltip {
+  width: 156px;
+  margin: 0;
+  padding: 3px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 1;
+  top: -15px;
+  right: 120px;
+  background-color: #DDDEE3;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  text-align: center;
+  color: #000000;
+  pointer-events: none;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  transition: 0.8s 0.2s linear;
+  opacity: 0;
+}
+
+.auth__tooltip_active {
+  opacity: 1;
+  top: -35px;
 }
 
 @media screen and (max-width: 879px) {
@@ -139,6 +174,10 @@
     height: 45px;
     font-size: 12px;
     line-height: 15px;
+  }
+
+  .auth__tooltip {
+    right: 52px;
   }
 
   .auth__redirect {
