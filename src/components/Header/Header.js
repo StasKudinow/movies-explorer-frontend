@@ -2,8 +2,8 @@ import { Route, Switch } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 
 import Logo from '../Logo/Logo';
-import NavigationLoggedIn from "../Navigation/NavigationLoggedIn";
-import NavigationLoggedOut from "../Navigation/NavigationLoggedOut";
+import NavigationLoggedIn from '../Navigation/NavigationLoggedIn';
+import NavigationLoggedOut from '../Navigation/NavigationLoggedOut';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 
 function Header(props) {
@@ -14,7 +14,8 @@ function Header(props) {
   let navigation;
 
   if (isLoggedIn) {
-    navigation = isMobile ? <BurgerMenu onClick={props.onPopupWithMenu} /> : <NavigationLoggedIn />
+    navigation = isMobile ?
+      <BurgerMenu onClick={props.onPopupWithMenu} /> : <NavigationLoggedIn />
   } else {
     navigation = <NavigationLoggedOut />
   };

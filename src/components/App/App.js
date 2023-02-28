@@ -454,7 +454,7 @@ function App() {
 
         <PopupWithMenu
           isOpen={isPopupWithMenuOpen}
-          onClose={closeAllPopups}
+          onClosePopup={closeAllPopups}
         />
 
       </CurrentUserContext.Provider>

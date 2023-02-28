@@ -28,6 +28,7 @@
   flex-direction: column;
   align-items: center;
   position: relative;
+  transition: width 3s ease;
 }
 
 .popup__close-button {

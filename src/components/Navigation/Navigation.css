@@ -124,23 +124,13 @@
     opacity: 1;
   }
 
-  .nav-menu__saved-movies {
-    margin: 0;
-    padding-bottom: 4px;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 22px;
-    border-bottom: 2px solid #FAFAFA;
-  }
-
-  .nav-menu__saved-movies:hover {
+  .nav-menu__movies_active {
     border-bottom: 2px solid #000000;
-    opacity: 1;
   }
 
   .nav-menu__profile {
     height: 36px;
-    margin-top: 444px;
+    margin-top: 320px;
   }
 }
 
@@ -169,6 +159,6 @@
   }
 
   .nav-menu__profile {
-    margin-top: 416px;
+    margin-top: 216px;
   }
 }
