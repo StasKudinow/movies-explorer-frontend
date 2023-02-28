@@ -9,8 +9,6 @@ function Login({ onLogin }) {
   const [isError, setIsError] = useState(false);
   const [inputDisabled, setInputDisabled] = useState(false);
 
-  console.log(inputDisabled)
-
   const history = useHistory();
 
   function handleSubmit(values) {
